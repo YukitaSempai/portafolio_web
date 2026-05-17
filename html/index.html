@@ -1,534 +1,938 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jesús Carreño - Full-Stack Developer</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-    <style>
-      :root {
-        --primary: #6366f1;
-        --primary-dark: #4f46e5;
-        --secondary: #8b5cf6;
-        --dark: #0f172a;
-        --light: #f8fafc;
-        --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jesús Carreño — Full-Stack Developer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink: #0a0a0f;
+      --paper: #f5f3ee;
+      --accent: #ff4d00;
+      --accent2: #0033ff;
+      --mid: #888880;
+      --border: rgba(10, 10, 15, 0.12);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: .5;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      mix-blend-mode: normal;
+      transition: background .3s, backdrop-filter .3s;
+    }
+
+    nav.scrolled {
+      background: rgba(245, 243, 238, .85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      opacity: .6;
+      transition: opacity .2s;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 0 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: var(--ink);
+      z-index: 0;
+    }
+
+    /* Grid lines */
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(245, 243, 238, .04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 243, 238, .04) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    /* Accent blob */
+    .hero-blob {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 77, 0, .35) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+      pointer-events: none;
+      animation: pulse 8s ease-in-out infinite alternate;
+    }
+
+    .hero-blob2 {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 51, 255, .2) 0%, transparent 70%);
+      bottom: 0;
+      left: 10%;
+      pointer-events: none;
+      animation: pulse 10s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes pulse {
+      from {
+        transform: scale(1) translate(0, 0);
       }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      to {
+        transform: scale(1.15) translate(20px, -20px);
       }
+    }
 
-      body {
-        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-          sans-serif;
-        overflow-x: hidden;
-      }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 7rem;
+      padding-bottom: 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
 
-      /* Hero Section */
-      .hero {
-        min-height: 100vh;
-        background: var(--gradient);
-        position: relative;
-        overflow: hidden;
-      }
+    .hero-label {
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp .8s .2s forwards;
+    }
 
-      .hero::before {
-        content: "";
-        position: absolute;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(
-          circle,
-          rgba(255, 255, 255, 0.1) 1px,
-          transparent 1px
-        );
-        background-size: 50px 50px;
-        animation: float 20s linear infinite;
-      }
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3.5rem, 9vw, 8.5rem);
+      line-height: .95;
+      letter-spacing: -.03em;
+      color: var(--paper);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp .9s .35s forwards;
+    }
 
-      @keyframes float {
-        0% {
-          transform: translate(0, 0);
-        }
-        100% {
-          transform: translate(-50px, -50px);
-        }
-      }
+    .hero-name span {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(245, 243, 238, .35);
+    }
 
-      .hero-content {
-        position: relative;
-        z-index: 2;
-      }
+    .hero-desc {
+      font-size: clamp(1rem, 1.6vw, 1.2rem);
+      font-weight: 300;
+      color: rgba(245, 243, 238, .6);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp .9s .5s forwards;
+    }
 
-      .hero h1 {
-        font-size: clamp(2.5rem, 6vw, 4rem);
-        font-weight: 800;
-        color: white;
-        margin-bottom: 1rem;
-        animation: fadeInUp 1s ease;
-      }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .9rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      border: none;
+      cursor: pointer;
+      transition: transform .25s, box-shadow .25s;
+      opacity: 0;
+      animation: fadeUp .9s .65s forwards;
+      text-decoration: none;
+      width: fit-content;
+    }
 
-      .hero p {
-        font-size: clamp(1.2rem, 3vw, 1.5rem);
-        color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 2rem;
-        animation: fadeInUp 1s ease 0.2s both;
-      }
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(255, 77, 0, .4);
+      color: #fff;
+    }
 
-      .btn-modern {
-        background: white;
-        color: var(--primary);
-        border: none;
-        padding: 1rem 2.5rem;
-        border-radius: 50px;
-        font-weight: 600;
-        font-size: 1.1rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        animation: fadeInUp 1s ease 0.4s both;
-      }
+    .hero-scroll {
+      position: relative;
+      z-index: 2;
+      padding-bottom: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp .9s 1s forwards;
+    }
 
-      .btn-modern:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        background: var(--light);
-      }
+    .scroll-line {
+      width: 50px;
+      height: 1px;
+      background: rgba(245, 243, 238, .25);
+    }
 
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
+    .scroll-label {
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(245, 243, 238, .35);
+    }
 
-      /* Cards Section */
-      .section-title {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: var(--dark);
-        margin-bottom: 3rem;
-        position: relative;
-        display: inline-block;
-      }
-
-      .section-title::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 60%;
-        height: 4px;
-        background: var(--gradient);
-        border-radius: 2px;
-      }
-
-      .card-modern {
-        border: none;
-        border-radius: 20px;
-        overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        background: white;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        height: 100%;
-      }
-
-      .card-modern:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-      }
-
-      .card-icon {
-        width: 80px;
-        height: 80px;
-        background: var(--gradient);
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 2rem auto 1.5rem;
-        font-size: 2rem;
-        color: white;
-        transition: all 0.3s ease;
-      }
-
-      .card-modern:hover .card-icon {
-        transform: rotate(360deg) scale(1.1);
-      }
-
-      .card-title {
-        font-weight: 700;
-        color: var(--dark);
-        margin-bottom: 1rem;
-      }
-
-      .card-text {
-        color: #64748b;
-        line-height: 1.7;
-      }
-
-      /* Skills Section */
-      .skills-section {
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-      }
-
-      .skill-item {
-        background: white;
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-        border-left: 4px solid var(--primary);
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      }
-
-      .skill-item:hover {
-        transform: translateX(10px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      }
-
-      .skill-icon {
-        color: var(--primary);
-        font-size: 1.5rem;
-        margin-right: 1rem;
-      }
-
-      /* Download Section */
-      .download-section {
-        background: var(--gradient);
-        padding: 5rem 0;
-        position: relative;
-      }
-
-      .download-section::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
-        opacity: 0.3;
-      }
-
-      .btn-download {
-        background: white;
-        color: var(--primary);
-        border: none;
-        padding: 1.2rem 3rem;
-        border-radius: 50px;
-        font-weight: 700;
-        font-size: 1.2rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      }
-
-      .btn-download:hover {
-        transform: translateY(-5px) scale(1.05);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      }
-
-      /* Contact Section */
-      .contact-card {
-        background: white;
-        border-radius: 20px;
-        padding: 2rem;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-      }
-
-      .contact-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      }
-
-      .contact-icon {
-        width: 60px;
-        height: 60px;
-        background: var(--gradient);
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.8rem;
-        flex-shrink: 0;
-      }
-
-      .contact-text {
-        margin: 0;
-        color: var(--dark);
-        font-weight: 500;
-      }
-
-      /* Footer */
-      footer {
-        background: var(--dark);
-        padding: 2rem 0;
-      }
-
-      footer p {
-        margin: 0;
-        color: rgba(255, 255, 255, 0.8);
-      }
-
-      /* Scroll Animations */
-      .fade-in {
+    @keyframes fadeUp {
+      from {
         opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.6s ease;
+        transform: translateY(24px);
       }
 
-      .fade-in.visible {
+      to {
         opacity: 1;
         transform: translateY(0);
       }
+    }
 
-      /* Responsive */
-      @media (max-width: 768px) {
-        .section-title {
-          font-size: 2rem;
-        }
+    /* ── SECTIONS COMMON ── */
+    section {
+      padding: 6rem 2.5rem;
+    }
 
-        .contact-card {
-          flex-direction: column;
-          text-align: center;
-        }
+    .container-custom {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: .3rem .75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-heading {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: -.03em;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── AREAS ── */
+    #areas {
+      background: var(--paper);
+    }
+
+    .area-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5px;
+      border: 1.5px solid var(--ink);
+    }
+
+    .area-card {
+      padding: 2.5rem 2rem;
+      border: 1.5px solid var(--ink);
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transition: background .3s;
+      margin: -1.5px;
+    }
+
+    .area-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--ink);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+      z-index: 0;
+    }
+
+    .area-card:hover::before {
+      transform: scaleY(1);
+    }
+
+    .area-card:hover .area-icon,
+    .area-card:hover .area-title,
+    .area-card:hover .area-text {
+      color: var(--paper);
+    }
+
+    .area-card:hover .area-num {
+      color: var(--accent);
+    }
+
+    .area-card>* {
+      position: relative;
+      z-index: 1;
+      transition: color .3s;
+    }
+
+    .area-num {
+      font-family: 'Syne', sans-serif;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      color: var(--mid);
+      margin-bottom: 2rem;
+    }
+
+    .area-icon {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      display: block;
+      transition: color .3s;
+    }
+
+    .area-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--ink);
+      margin-bottom: .75rem;
+    }
+
+    .area-text {
+      font-size: .9rem;
+      line-height: 1.7;
+      color: var(--mid);
+    }
+
+    /* ── SKILLS ── */
+    #skills {
+      background: var(--ink);
+    }
+
+    #skills .section-heading {
+      color: var(--paper);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(245, 243, 238, .08);
+    }
+
+    .skill-row {
+      background: var(--ink);
+      padding: 1.75rem 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      border-left: 2px solid transparent;
+      transition: border-color .3s, background .3s;
+      opacity: 0;
+      transform: translateX(-16px);
+      transition: opacity .5s ease, transform .5s ease, border-color .3s, background .3s;
+    }
+
+    .skill-row.in-view {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .skill-row:hover {
+      border-left-color: var(--accent);
+      background: rgba(255, 77, 0, .05);
+    }
+
+    .skill-cat {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .85rem;
+      color: var(--accent);
+      white-space: nowrap;
+      min-width: 120px;
+      padding-top: .1rem;
+    }
+
+    .skill-detail {
+      font-size: .85rem;
+      line-height: 1.65;
+      color: rgba(245, 243, 238, .55);
+    }
+
+    /* ── ABOUT / STATS ── */
+    #about {
+      background: var(--paper);
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 0;
+      border: 1.5px solid var(--ink);
+      margin-bottom: 4rem;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 2rem;
+      border-right: 1.5px solid var(--ink);
+      text-align: center;
+    }
+
+    .stat:last-child {
+      border-right: none;
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -.04em;
+      color: var(--ink);
+    }
+
+    .stat-num span {
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-top: .3rem;
+    }
+
+    .about-text {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #444;
+      max-width: 700px;
+    }
+
+    /* ── CV DOWNLOAD ── */
+    #cv {
+      background: var(--accent);
+      padding: 5rem 2.5rem;
+    }
+
+    .cv-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .cv-heading {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      color: #fff;
+      letter-spacing: -.04em;
+      line-height: 1.05;
+    }
+
+    .btn-cv {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      background: #fff;
+      color: var(--accent);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .9rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 1.1rem 2.5rem;
+      border: none;
+      cursor: pointer;
+      transition: transform .25s, box-shadow .25s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-cv:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .2);
+      color: var(--accent);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--paper);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5px;
+      border: 1.5px solid var(--ink);
+    }
+
+    .contact-item {
+      padding: 2.5rem 2rem;
+      border: 1.5px solid var(--ink);
+      margin: -1.5px;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      transition: background .3s;
+      cursor: default;
+    }
+
+    .contact-item:hover {
+      background: var(--ink);
+    }
+
+    .contact-item:hover .ci-icon {
+      color: var(--accent);
+    }
+
+    .contact-item:hover .ci-label {
+      color: rgba(245, 243, 238, .4);
+    }
+
+    .contact-item:hover .ci-value {
+      color: var(--paper);
+    }
+
+    .ci-icon {
+      font-size: 1.6rem;
+      color: var(--ink);
+      transition: color .3s;
+    }
+
+    .ci-label {
+      font-size: .68rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: .2rem;
+      transition: color .3s;
+    }
+
+    .ci-value {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--ink);
+      transition: color .3s;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      padding: 2.5rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer p {
+      font-size: .8rem;
+      color: rgba(245, 243, 238, .35);
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: rgba(245, 243, 238, .5);
+      letter-spacing: -.02em;
+    }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.25rem;
       }
-    </style>
-  </head>
-  <body>
-    <!-- Hero Section -->
-    <section class="hero d-flex align-items-center justify-content-center">
-      <div class="container hero-content text-center">
-        <h1>Jesús Carreño</h1>
-        <p>Full-Stack Software Developer</p>
-        <button
-          class="btn btn-modern"
-          onclick="document.getElementById('areas').scrollIntoView({behavior: 'smooth'})"
-        >
-          Explorar Mi Trabajo
-        </button>
+
+      .nav-links {
+        display: none;
+      }
+
+      section {
+        padding: 4rem 1.25rem;
+      }
+
+      #hero {
+        padding: 0 1.25rem;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-row {
+        flex-direction: column;
+      }
+
+      .stat {
+        border-right: none;
+        border-bottom: 1.5px solid var(--ink);
+      }
+
+      .stat:last-child {
+        border-bottom: none;
+      }
+
+      .cv-inner {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">JC.</a>
+    <ul class="nav-links">
+      <li><a href="#areas">Áreas</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#about">Sobre mí</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg">
+      <div class="hero-blob"></div>
+      <div class="hero-blob2"></div>
+    </div>
+    <div class="hero-inner">
+      <p class="hero-label">Full-Stack Software Developer</p>
+      <h1 class="hero-name">
+        Jesús<br>
+        <span>Carreño</span>
+      </h1>
+      <p class="hero-desc">
+        Desarrollo sistemas, aplicaciones web y mobile con más de una década de experiencia construyendo soluciones que
+        escalan.
+      </p>
+      <a href="#areas" class="hero-cta">
+        Ver mi trabajo <i class="bi bi-arrow-down-right"></i>
+      </a>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span class="scroll-label">Scroll para explorar</span>
+    </div>
+  </section>
+
+  <!-- AREAS -->
+  <section id="areas">
+    <div class="container-custom">
+      <div class="reveal">
+        <span class="section-tag">01 — Expertise</span>
+        <h2 class="section-heading">Áreas de<br>Conocimiento</h2>
       </div>
-    </section>
 
-    <!-- Areas Section -->
-    <section id="areas" class="py-5">
-      <div class="container my-5">
-        <div class="text-center mb-5">
-          <h2 class="section-title fade-in">Áreas de Conocimiento</h2>
+      <div class="area-grid reveal">
+        <div class="area-card">
+          <div class="area-num">01</div>
+          <i class="bi bi-phone area-icon"></i>
+          <div class="area-title">Sistemas & Apps</div>
+          <p class="area-text">Aplicaciones móviles y sistemas de información administrativos y de control, tanto en
+            entorno web como de escritorio.</p>
         </div>
-
-        <div class="row g-4">
-          <div class="col-12 col-md-6 col-lg-3 fade-in">
-            <div class="card-modern">
-              <div class="card-body text-center p-4">
-                <div class="card-icon">
-                  <i class="bi bi-phone"></i>
-                </div>
-                <h5 class="card-title">Sistemas y Aplicaciones</h5>
-                <p class="card-text">
-                  Desarrollo de aplicaciones móviles y sistemas de información
-                  administrativos y de control, ambiente web o escritorio.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-6 col-lg-3 fade-in">
-            <div class="card-modern">
-              <div class="card-body text-center p-4">
-                <div class="card-icon">
-                  <i class="bi bi-globe"></i>
-                </div>
-                <h5 class="card-title">Soluciones Web</h5>
-                <p class="card-text">
-                  Páginas web personales y corporativas modernas con diseño
-                  responsivo, hosting, dominio web y certificado SSL.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-6 col-lg-3 fade-in">
-            <div class="card-modern">
-              <div class="card-body text-center p-4">
-                <div class="card-icon">
-                  <i class="bi bi-database"></i>
-                </div>
-                <h5 class="card-title">Analista de Bases de Datos</h5>
-                <p class="card-text">
-                  Desarrollo, análisis y optimización de bases de datos,
-                  garantizando integridad, eficiencia y soporte para
-                  aplicaciones empresariales.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-6 col-lg-3 fade-in">
-            <div class="card-modern">
-              <div class="card-body text-center p-4">
-                <div class="card-icon">
-                  <i class="bi bi-mortarboard"></i>
-                </div>
-                <h5 class="card-title">Adiestramiento</h5>
-                <p class="card-text">
-                  Instructor especialista universitario en tecnologías de la
-                  información, ofreciendo formación práctica y actualizada en
-                  entornos tecnológicos.
-                </p>
-              </div>
-            </div>
-          </div>
+        <div class="area-card">
+          <div class="area-num">02</div>
+          <i class="bi bi-globe2 area-icon"></i>
+          <div class="area-title">Soluciones Web</div>
+          <p class="area-text">Sitios web personales y corporativos con diseño responsivo moderno, hosting, dominio y
+            certificado SSL incluido.</p>
         </div>
-      </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="skills-section py-5">
-      <div class="container my-5">
-        <div class="text-center mb-5">
-          <h2 class="section-title fade-in">Desarrollo y Experiencia</h2>
+        <div class="area-card">
+          <div class="area-num">03</div>
+          <i class="bi bi-database area-icon"></i>
+          <div class="area-title">Analista DB</div>
+          <p class="area-text">Diseño, análisis y optimización de bases de datos garantizando integridad, eficiencia y
+            soporte empresarial.</p>
         </div>
-
-        <div class="row justify-content-center">
-          <div class="col-12 col-lg-10">
-            <div class="skill-item fade-in">
-              <i class="bi bi-check-circle-fill skill-icon"></i>
-              <strong>Java:</strong> JSE, J2EE (JDBC, JPA, JSF, Servlets,
-              PrimeFaces, Hibernate, SpringBoot)
-            </div>
-            <div class="skill-item fade-in">
-              <i class="bi bi-check-circle-fill skill-icon"></i>
-              <strong>PHP5:</strong> MVC, CodeIgniter, Yii y Phalcon
-            </div>
-            <div class="skill-item fade-in">
-              <i class="bi bi-check-circle-fill skill-icon"></i>
-              <strong>WebServices:</strong> ApiRest, SOAP, XML
-            </div>
-            <div class="skill-item fade-in">
-              <i class="bi bi-check-circle-fill skill-icon"></i>
-              <strong>WEB:</strong> HTML5, CSS, CSS3, JavaScript, Bootstrap,
-              Ajax, jQuery, Vue.js
-            </div>
-            <div class="skill-item fade-in">
-              <i class="bi bi-check-circle-fill skill-icon"></i>
-              <strong>WEB CMS:</strong> Wordpress, Joomla, WooCommerce
-            </div>
-            <div class="skill-item fade-in">
-              <i class="bi bi-check-circle-fill skill-icon"></i>
-              <strong>Hosting:</strong> cPanel/WHM, WHMCS, CSF, Imunify360, SSH,
-              Detección de Spam, Escaneo de Virus, CentOS-Linux
-            </div>
-            <div class="skill-item fade-in">
-              <i class="bi bi-check-circle-fill skill-icon"></i>
-              <strong>Bases de Datos:</strong> MySQL, PostgreSQL, SQL Server,
-              Access, MongoDB, DB2
-            </div>
-            <div class="skill-item fade-in">
-              <i class="bi bi-check-circle-fill skill-icon"></i>
-              <strong>Pentester:</strong> Verificación y monitoreo de
-              vulnerabilidades en sistemas informáticos, configuración y
-              aplicación de exploits, pruebas de penetración con técnicas de
-              Ethical Hacking
-            </div>
-          </div>
+        <div class="area-card">
+          <div class="area-num">04</div>
+          <i class="bi bi-mortarboard area-icon"></i>
+          <div class="area-title">Adiestramiento</div>
+          <p class="area-text">Instructor universitario especialista en TI — formación práctica y actualizada en
+            entornos tecnológicos reales.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Download Section -->
-    <section class="download-section text-center">
-      <div class="container">
-        <h2 class="text-white fw-bold mb-4" style="font-size: 2.5rem">
-          Resumen Curricular
-        </h2>
-        <button class="btn btn-download" onclick="alert('Descarga tu CV aquí')">
-          <i class="bi bi-download me-2"></i>Descargar CV
-        </button>
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container-custom">
+      <div class="reveal">
+        <span class="section-tag" style="color:var(--accent);border-color:var(--accent);">02 — Stack</span>
+        <h2 class="section-heading">Desarrollo &<br>Experiencia</h2>
       </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section class="py-5">
-      <div class="container my-5">
-        <div class="text-center mb-5">
-          <h2 class="section-title fade-in">Contáctame</h2>
+      <div class="skills-grid">
+        <div class="skill-row">
+          <div class="skill-cat">Java</div>
+          <div class="skill-detail">JSE, J2EE — JDBC, JPA, JSF, Servlets, PrimeFaces, Hibernate, Spring Boot</div>
         </div>
-
-        <div class="row g-4">
-          <div class="col-12 col-md-4 fade-in">
-            <div class="contact-card">
-              <div class="contact-icon">
-                <i class="bi bi-telephone"></i>
-              </div>
-              <p class="contact-text">+58 424 382 2294</p>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-4 fade-in">
-            <div class="contact-card">
-              <div class="contact-icon">
-                <i class="bi bi-geo-alt"></i>
-              </div>
-              <p class="contact-text">Fuerte Tiuna, Caracas, Venezuela</p>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-4 fade-in">
-            <div class="contact-card">
-              <div class="contact-icon">
-                <i class="bi bi-envelope"></i>
-              </div>
-              <p class="contact-text">xlyovx@proton.me</p>
-            </div>
+        <div class="skill-row">
+          <div class="skill-cat">PHP 5</div>
+          <div class="skill-detail">MVC, CodeIgniter, Yii, Phalcon</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-cat">Web Services</div>
+          <div class="skill-detail">API REST, SOAP, XML</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-cat">Frontend</div>
+          <div class="skill-detail">HTML5, CSS3, JavaScript, Bootstrap, Ajax, jQuery, Vue.js</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-cat">CMS</div>
+          <div class="skill-detail">WordPress, Joomla, WooCommerce</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-cat">Hosting</div>
+          <div class="skill-detail">cPanel/WHM, WHMCS, CSF, Imunify360, SSH, CentOS-Linux</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-cat">Bases de Datos</div>
+          <div class="skill-detail">MySQL, PostgreSQL, SQL Server, Access, MongoDB, DB2</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-cat">Pentester</div>
+          <div class="skill-detail">Ethical Hacking, exploits, pruebas de penetración, monitoreo de vulnerabilidades
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="text-center">
-      <p>&copy; 2025 Jesús Carreño. Todos los derechos reservados.</p>
-    </footer>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container-custom">
+      <div class="reveal">
+        <span class="section-tag">03 — Sobre mí</span>
+        <h2 class="section-heading">Construyo software<br>que importa</h2>
+      </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      // Scroll animations
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px",
-      };
+      <div class="stats-row reveal">
+        <div class="stat">
+          <div class="stat-num">4<span>+</span></div>
+          <div class="stat-label">Años de experiencia</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">8<span>+</span></div>
+          <div class="stat-label">Tecnologías dominadas</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">Full<span>-</span>Stack</div>
+          <div class="stat-label">Perfil profesional</div>
+        </div>
+      </div>
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      }, observerOptions);
+      <p class="about-text reveal">
+        Soy desarrollador Full-Stack con experiencia sólida en el ciclo completo del software — desde el análisis y
+        diseño de bases de datos, hasta el despliegue en producción y la capacitación de equipos. Me especializo en
+        construir sistemas robustos para entornos empresariales y educativos, aplicando estándares de seguridad y buenas
+        prácticas de arquitectura.
+      </p>
+    </div>
+  </section>
 
-      document
-        .querySelectorAll(".fade-in")
-        .forEach((el) => observer.observe(el));
-    </script>
-  </body>
+  <!-- CV DOWNLOAD -->
+  <section id="cv" style="padding:5rem 2.5rem;">
+    <div class="cv-inner">
+      <h2 class="cv-heading">¿Listo para<br>colaborar?</h2>
+
+      <a href="../documentos/sintesis_curricular.pdf" class="btn-cv" download="Sintesis_Curricular.pdf"
+        type="application/pdf">
+        <i class="bi bi-download"></i> Descargar CV
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container-custom">
+      <div class="reveal">
+        <span class="section-tag">04 — Contacto</span>
+        <h2 class="section-heading">Hablemos</h2>
+      </div>
+
+      <div class="contact-grid reveal">
+        <div class="contact-item">
+          <i class="bi bi-telephone ci-icon"></i>
+          <div>
+            <div class="ci-label">Teléfono</div>
+            <div class="ci-value">+58 424 382 2294</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="bi bi-geo-alt ci-icon"></i>
+          <div>
+            <div class="ci-label">Ubicación</div>
+            <div class="ci-value">Fuerte Tiuna, Caracas, Venezuela</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="bi bi-envelope ci-icon"></i>
+          <div>
+            <div class="ci-label">Email</div>
+            <div class="ci-value">jesuscarrenooliveri97@gmail.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">JC.</span>
+    <p>© 2025 Jesús Carreño — Todos los derechos reservados.</p>
+    <p>Full-Stack Developer · Caracas, Venezuela</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar scroll
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Intersection Observer for reveals
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal, .skill-row').forEach(el => io.observe(el));
+
+    // Stagger skill rows
+    document.querySelectorAll('.skill-row').forEach((row, i) => {
+      row.style.transitionDelay = `${i * 0.06}s`;
+    });
+  </script>
+</body>
+
 </html>
