@@ -5,6 +5,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jesús Carreño — Full-Stack Developer</title>
+  <meta name="description"
+    content="Jesús Carreño, Full-Stack Software Developer de Caracas, Venezuela. Desarrollo de sistemas, aplicaciones web y móviles, análisis de bases de datos y consultoría tecnológica." />
+  <meta name="author" content="Jesús Carreño" />
+  <meta property="og:title" content="Jesús Carreño — Full-Stack Developer" />
+  <meta property="og:description"
+    content="Desarrollo sistemas, aplicaciones web y móvil con más de una década de experiencia construyendo soluciones que escalan." />
+  <meta property="og:type" content="website" />
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0a0f'/%3E%3Ctext x='50' y='70' font-size='55' text-anchor='middle' fill='%23ff4d00' font-family='Arial' font-weight='bold'%3EJC%3C/text%3E%3C/svg%3E" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -33,6 +42,20 @@
 
     html {
       scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
     }
 
     body {
@@ -102,6 +125,23 @@
 
     .nav-links a:hover {
       opacity: 1;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: .5rem;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--ink);
+      margin: 5px 0;
+      transition: transform .25s, opacity .25s;
     }
 
     /* ── HERO ── */
@@ -578,6 +618,8 @@
       gap: 1.25rem;
       transition: background .3s;
       cursor: default;
+      text-decoration: none;
+      color: inherit;
     }
 
     .contact-item:hover {
@@ -661,8 +703,35 @@
         padding: 1rem 1.25rem;
       }
 
+      .nav-toggle {
+        display: block;
+      }
+
       .nav-links {
         display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: var(--paper);
+        border-bottom: 1px solid var(--border);
+        padding: .5rem 1.25rem 1.25rem;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links li a {
+        display: block;
+        padding: .85rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links li:last-child a {
+        border-bottom: none;
       }
 
       section {
@@ -701,13 +770,19 @@
 
   <!-- NAV -->
   <nav id="navbar">
-    <a href="#hero" class="nav-logo">JC.</a>
-    <ul class="nav-links">
+    <a href="#hero" class="nav-logo" aria-label="Ir al inicio">JC.</a>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#areas">Áreas</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#about">Sobre mí</a></li>
       <li><a href="#contact">Contacto</a></li>
     </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false"
+      aria-controls="navLinks">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
 
   <!-- HERO -->
@@ -860,8 +935,8 @@
     <div class="cv-inner">
       <h2 class="cv-heading">¿Listo para<br>colaborar?</h2>
 
-      <a href="../documentos/sintesis_curricular.pdf" class="btn-cv" download="Sintesis_Curricular.pdf"
-        type="application/pdf">
+      <a href="public/sintesis_curricular.pdf" class="btn-cv" download="Sintesis_Curricular.pdf"
+        type="application/pdf" aria-label="Descargar currículum vitae en PDF">
         <i class="bi bi-download"></i> Descargar CV
       </a>
 
@@ -877,13 +952,13 @@
       </div>
 
       <div class="contact-grid reveal">
-        <div class="contact-item">
+        <a href="tel:+584243822294" class="contact-item" aria-label="Llamar al +58 424 382 2294">
           <i class="bi bi-telephone ci-icon"></i>
           <div>
             <div class="ci-label">Teléfono</div>
             <div class="ci-value">+58 424 382 2294</div>
           </div>
-        </div>
+        </a>
         <div class="contact-item">
           <i class="bi bi-geo-alt ci-icon"></i>
           <div>
@@ -891,13 +966,13 @@
             <div class="ci-value">Fuerte Tiuna, Caracas, Venezuela</div>
           </div>
         </div>
-        <div class="contact-item">
+        <a href="mailto:jesuscarrenooliveri97@gmail.com" class="contact-item" aria-label="Enviar correo a Jesús Carreño">
           <i class="bi bi-envelope ci-icon"></i>
           <div>
             <div class="ci-label">Email</div>
             <div class="ci-value">jesuscarrenooliveri97@gmail.com</div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
@@ -905,7 +980,7 @@
   <!-- FOOTER -->
   <footer>
     <span class="footer-logo">JC.</span>
-    <p>© 2025 Jesús Carreño — Todos los derechos reservados.</p>
+    <p>© <span id="year">2026</span> Jesús Carreño — Todos los derechos reservados.</p>
     <p>Full-Stack Developer · Caracas, Venezuela</p>
   </footer>
 
@@ -916,6 +991,27 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 60);
     });
+
+    // Mobile menu toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+      navToggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+    });
+
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'Abrir menú');
+      });
+    });
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
     // Intersection Observer for reveals
     const io = new IntersectionObserver((entries) => {
