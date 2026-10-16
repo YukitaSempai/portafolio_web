@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 
@@ -8,6 +9,8 @@
   <meta name="description"
     content="Jesús Carreño, Full-Stack Software Developer de Caracas, Venezuela. Desarrollo de sistemas, aplicaciones web y móviles, análisis de bases de datos y consultoría tecnológica." />
   <meta name="author" content="Jesús Carreño" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="robots" content="index, follow" />
   <meta property="og:title" content="Jesús Carreño — Full-Stack Developer" />
   <meta property="og:description"
     content="Desarrollo sistemas, aplicaciones web y móvil con más de una década de experiencia construyendo soluciones que escalan." />
@@ -21,6 +24,22 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
     rel="stylesheet" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Jesús Carreño",
+      "jobTitle": "Desarrollador Full-Stack",
+      "email": "jesuscarrenooliveri97@gmail.com",
+      "telephone": "+584243822294",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Caracas",
+        "addressCountry": "VE"
+      },
+      "knowsAbout": ["Desarrollo de software", "Aplicaciones web y móviles", "Bases de datos", "APIs REST"]
+    }
+  </script>
 
   <style>
     :root {
@@ -42,6 +61,15 @@
 
     html {
       scroll-behavior: smooth;
+    }
+
+    section[id] {
+      scroll-margin-top: 5rem;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--accent2);
+      outline-offset: 4px;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -285,6 +313,30 @@
       transform: translateY(-3px);
       box-shadow: 0 12px 30px rgba(255, 77, 0, .4);
       color: #fff;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .hero-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: .65rem;
+      color: var(--paper);
+      font-size: .9rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 1rem .5rem;
+      transition: color .2s, transform .2s;
+    }
+
+    .hero-cta-secondary:hover {
+      color: #25d366;
+      transform: translateY(-2px);
     }
 
     .hero-scroll {
@@ -685,6 +737,47 @@
       letter-spacing: -.02em;
     }
 
+    .whatsapp-float {
+      position: fixed;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      z-index: 90;
+      width: 3.5rem;
+      height: 3.5rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #25d366;
+      color: #073b1c;
+      font-size: 1.65rem;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .22);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .whatsapp-float:hover {
+      color: #073b1c;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .28);
+    }
+
+    .js-enabled .reveal,
+    .js-enabled .skill-row {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .js-enabled .skill-row {
+      transform: translateX(-16px);
+    }
+
+    .js-enabled .reveal.in-view,
+    .js-enabled .skill-row.in-view {
+      opacity: 1;
+      transform: translate(0);
+    }
+
     /* ── REVEAL ── */
     .reveal {
       opacity: 0;
@@ -761,6 +854,20 @@
 
       .cv-inner {
         flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-actions {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: .25rem;
+      }
+
+      .whatsapp-float {
+        right: 1rem;
+        bottom: 1rem;
+        width: 3.25rem;
+        height: 3.25rem;
       }
     }
   </style>
@@ -775,6 +882,7 @@
       <li><a href="#areas">Áreas</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#about">Sobre mí</a></li>
+      <li><a href="#cv">Currículum</a></li>
       <li><a href="#contact">Contacto</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false"
@@ -798,12 +906,18 @@
         <span>Carreño</span>
       </h1>
       <p class="hero-desc">
-        Desarrollo sistemas, aplicaciones web y mobile con más de una década de experiencia construyendo soluciones que
-        escalan.
+        Diseño y desarrollo soluciones web, móviles y empresariales: desde la arquitectura y los datos hasta la puesta
+        en producción.
       </p>
-      <a href="#areas" class="hero-cta">
-        Ver mi trabajo <i class="bi bi-arrow-down-right"></i>
-      </a>
+      <div class="hero-actions">
+        <a href="#areas" class="hero-cta">
+          Explorar servicios <i class="bi bi-arrow-down-right" aria-hidden="true"></i>
+        </a>
+        <a href="https://wa.me/584243822294?text=Hola%20Jes%C3%BAs%2C%20vi%20tu%20portafolio%20y%20quisiera%20conversar%20sobre%20un%20proyecto."
+          class="hero-cta-secondary" target="_blank" rel="noopener noreferrer">
+          <i class="bi bi-whatsapp" aria-hidden="true"></i> Hablemos por WhatsApp
+        </a>
+      </div>
     </div>
     <div class="hero-scroll">
       <div class="scroll-line"></div>
@@ -866,8 +980,8 @@
           <div class="skill-detail">JSE, J2EE — JDBC, JPA, JSF, Servlets, PrimeFaces, Hibernate, Spring Boot</div>
         </div>
         <div class="skill-row">
-          <div class="skill-cat">PHP 5</div>
-          <div class="skill-detail">MVC, CodeIgniter, Yii, Phalcon</div>
+          <div class="skill-cat">PHP</div>
+          <div class="skill-detail">Desarrollo MVC con CodeIgniter, Yii y Phalcon</div>
         </div>
         <div class="skill-row">
           <div class="skill-cat">Web Services</div>
@@ -890,9 +1004,8 @@
           <div class="skill-detail">MySQL, PostgreSQL, SQL Server, Access, MongoDB, DB2</div>
         </div>
         <div class="skill-row">
-          <div class="skill-cat">Pentester</div>
-          <div class="skill-detail">Ethical Hacking, exploits, pruebas de penetración, monitoreo de vulnerabilidades
-          </div>
+          <div class="skill-cat">Seguridad</div>
+          <div class="skill-detail">Pruebas de seguridad autorizadas y revisión de vulnerabilidades</div>
         </div>
       </div>
     </div>
@@ -908,16 +1021,16 @@
 
       <div class="stats-row reveal">
         <div class="stat">
-          <div class="stat-num">4<span>+</span></div>
-          <div class="stat-label">Años de experiencia</div>
+          <div class="stat-num">Web<span>.</span></div>
+          <div class="stat-label">Aplicaciones y sitios</div>
         </div>
         <div class="stat">
-          <div class="stat-num">8<span>+</span></div>
-          <div class="stat-label">Tecnologías dominadas</div>
+          <div class="stat-num">Data<span>.</span></div>
+          <div class="stat-label">Bases de datos y APIs</div>
         </div>
         <div class="stat">
-          <div class="stat-num">Full<span>-</span>Stack</div>
-          <div class="stat-label">Perfil profesional</div>
+          <div class="stat-num">End<span>-</span>to-end</div>
+          <div class="stat-label">Del análisis al despliegue</div>
         </div>
       </div>
 
@@ -935,7 +1048,7 @@
     <div class="cv-inner">
       <h2 class="cv-heading">¿Listo para<br>colaborar?</h2>
 
-      <a href="assets/sintesis_curricular.pdf" class="btn-cv" download="Sintesis_Curricular.pdf"
+      <a href="{% static 'sintesis_curricular.pdf' %}" class="btn-cv" download="Sintesis_Curricular.pdf"
         type="application/pdf" aria-label="Descargar currículum vitae en PDF">
         <i class="bi bi-download"></i> Descargar CV
       </a>
@@ -957,6 +1070,14 @@
           <div>
             <div class="ci-label">Teléfono</div>
             <div class="ci-value">+58 424 382 2294</div>
+          </div>
+        </a>
+        <a href="https://wa.me/584243822294?text=Hola%20Jes%C3%BAs%2C%20vi%20tu%20portafolio%20y%20quisiera%20conversar%20sobre%20un%20proyecto."
+          class="contact-item" target="_blank" rel="noopener noreferrer" aria-label="Escribir a Jesús por WhatsApp">
+          <i class="bi bi-whatsapp ci-icon" aria-hidden="true"></i>
+          <div>
+            <div class="ci-label">WhatsApp Business</div>
+            <div class="ci-value">Iniciar conversación</div>
           </div>
         </a>
         <div class="contact-item">
@@ -984,13 +1105,21 @@
     <p>Full-Stack Developer · Caracas, Venezuela</p>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <a href="https://wa.me/584243822294?text=Hola%20Jes%C3%BAs%2C%20vi%20tu%20portafolio%20y%20quisiera%20conversar%20sobre%20un%20proyecto."
+    class="whatsapp-float" target="_blank" rel="noopener noreferrer"
+    aria-label="Contactar a Jesús por WhatsApp Business">
+    <i class="bi bi-whatsapp" aria-hidden="true"></i>
+  </a>
+
   <script>
+    document.documentElement.classList.add('js-enabled');
+
     // Navbar scroll
     const nav = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 60);
-    });
+    }, { passive: true });
+    nav.classList.toggle('scrolled', window.scrollY > 60);
 
     // Mobile menu toggle
     const navToggle = document.getElementById('navToggle');
@@ -1000,6 +1129,15 @@
       const isOpen = navLinks.classList.toggle('open');
       navToggle.setAttribute('aria-expanded', String(isOpen));
       navToggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && navLinks.classList.contains('open')) {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'Abrir menú');
+        navToggle.focus();
+      }
     });
 
     navLinks.querySelectorAll('a').forEach(a => {
@@ -1014,20 +1152,25 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Intersection Observer for reveals
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in-view');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in-view');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+      document.querySelectorAll('.reveal, .skill-row').forEach((el, i) => {
+        if (el.matches('.skill-row')) {
+          el.style.transitionDelay = `${(i % 8) * 0.06}s`;
         }
+        io.observe(el);
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
-    document.querySelectorAll('.reveal, .skill-row').forEach(el => io.observe(el));
-
-    // Stagger skill rows
-    document.querySelectorAll('.skill-row').forEach((row, i) => {
-      row.style.transitionDelay = `${i * 0.06}s`;
-    });
+    } else {
+      document.querySelectorAll('.reveal, .skill-row').forEach(el => el.classList.add('in-view'));
+    }
   </script>
 </body>
 
