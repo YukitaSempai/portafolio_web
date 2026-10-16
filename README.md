@@ -1,29 +1,25 @@
 # Portafolio de Jesús Carreño
 
-Portafolio personal construido con Django. La página sirve la plantilla desde Django, y WhiteNoise publica el currículum y los demás archivos estáticos en producción.
+Portafolio personal estático, creado con HTML, CSS y JavaScript. Se publica en GitHub Pages desde la rama `main`; no necesita servidor, base de datos ni dependencias de Python.
 
-## Ejecutar localmente en Windows
+## Desarrollo local
 
-```powershell
-py -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-$env:DEBUG = "True"
-.\.venv\Scripts\python.exe manage.py runserver
-```
-
-Abre `http://127.0.0.1:8000/`. Para ejecutar las pruebas:
+Abre `index.html` en un navegador o inicia un servidor estático local:
 
 ```powershell
-$env:DEBUG = "True"
-.\.venv\Scripts\python.exe manage.py test
+py -m http.server 8000
 ```
 
-## Publicar en Render
+Visita `http://localhost:8000`. El currículum está en `assets/sintesis_curricular.pdf`.
 
-El archivo `render.yaml` define el servicio web, la compilación de archivos estáticos y la ruta de comprobación de salud. Sube el repositorio a GitHub, crea un Blueprint en Render conectado al repositorio y confirma el servicio descrito por `render.yaml`. Render genera `SECRET_KEY` automáticamente; `DEBUG` queda desactivado en producción.
+## Publicación
 
-La ruta `/health/` debe responder `ok` cuando la publicación esté lista. El servicio no requiere base de datos.
+1. En GitHub, abre **Settings → Pages** y selecciona **GitHub Actions** como fuente de publicación.
+2. Cada cambio enviado a `main` ejecutará el flujo de [publicación](./.github/workflows/pages.yml).
+3. Al finalizar el flujo, el portafolio estará disponible en <https://yukitasempai.github.io/portafolio_web/>.
+
+Para una versión nueva, modifica `index.html` o los archivos de `assets/`, revisa el resultado localmente y envía los cambios a `main`. El flujo publicará automáticamente la versión actualizada.
 
 ## Contacto
 
-Los botones de WhatsApp abren una conversación con el número público configurado en la plantilla. El CV se encuentra en `assets/sintesis_curricular.pdf`.
+Los enlaces de WhatsApp abren una conversación con el número público configurado en la página. Actualiza ese número en `index.html` si cambia.

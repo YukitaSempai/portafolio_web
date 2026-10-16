@@ -1,7 +1,0 @@
-.vercel
-__pycache__/
-*.py[cod]
-.venv/
-db.sqlite3
-staticfiles/
-.env
