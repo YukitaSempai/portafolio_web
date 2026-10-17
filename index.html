@@ -649,6 +649,65 @@
       background: var(--paper);
     }
 
+    .project-placeholder {
+      position: relative;
+      min-height: 430px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      padding: clamp(1.5rem, 4vw, 3rem);
+      background:
+        radial-gradient(circle at 82% 22%, rgba(255, 77, 0, .12), transparent 32%),
+        linear-gradient(135deg, #f5f3ee, #e6e3dc);
+      color: var(--ink);
+    }
+
+    .project-placeholder::after {
+      position: absolute;
+      right: -4rem;
+      bottom: -6rem;
+      width: 18rem;
+      height: 18rem;
+      border: 1px solid rgba(10, 10, 15, .12);
+      border-radius: 50%;
+      box-shadow: 0 0 0 2rem rgba(10, 10, 15, .025), 0 0 0 4rem rgba(10, 10, 15, .025);
+      content: "";
+    }
+
+    .project-placeholder-label,
+    .project-placeholder-title,
+    .project-placeholder-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-placeholder-label {
+      margin: 0 0 1rem;
+      color: var(--accent);
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .project-placeholder-title {
+      margin: 0;
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -.07em;
+      line-height: .95;
+    }
+
+    .project-placeholder-copy {
+      max-width: 25rem;
+      margin: 1rem 0 0;
+      color: #55534f;
+      font-size: .85rem;
+      line-height: 1.65;
+    }
+
     .project-copy {
       display: flex;
       flex-direction: column;
@@ -1197,6 +1256,10 @@
         height: 340px;
       }
 
+      .project-placeholder {
+        min-height: 340px;
+      }
+
       .project-copy {
         padding: 1.5rem;
       }
@@ -1216,6 +1279,10 @@
     @media (max-width: 480px) {
       .project-preview iframe {
         height: 290px;
+      }
+
+      .project-placeholder {
+        min-height: 290px;
       }
 
       .project-carousel-toolbar {
@@ -1338,7 +1405,7 @@
       <div class="project-carousel reveal" role="region" aria-roledescription="carrusel"
         aria-label="Proyectos destacados">
         <div class="project-carousel-toolbar">
-          <p class="project-status" id="projectStatus" aria-live="polite">Proyecto 1 de 4: Nanas Design</p>
+          <p class="project-status" id="projectStatus" aria-live="polite">Proyecto 1 de 5: Nanas Design</p>
           <div class="project-controls">
             <button class="project-arrow" id="projectPrevious" type="button" aria-label="Ver proyecto anterior" disabled>
               <i class="bi bi-arrow-left" aria-hidden="true"></i>
@@ -1352,7 +1419,7 @@
         <div class="project-track" id="projectTrack" tabindex="0"
           aria-label="Desliza horizontalmente para explorar los proyectos">
           <article class="project-card" role="group" aria-roledescription="diapositiva"
-            aria-label="1 de 4: Nanas Design">
+            aria-label="1 de 5: Nanas Design">
             <div class="project-preview">
               <div class="project-browser-bar" aria-hidden="true">
                 <span class="project-browser-dots"><span></span><span></span><span></span></span>
@@ -1391,7 +1458,7 @@
           </article>
 
           <article class="project-card" role="group" aria-roledescription="diapositiva"
-            aria-label="2 de 4: MYGV">
+            aria-label="2 de 5: MYGV">
             <div class="project-preview">
               <div class="project-browser-bar" aria-hidden="true">
                 <span class="project-browser-dots"><span></span><span></span><span></span></span>
@@ -1430,7 +1497,7 @@
           </article>
 
           <article class="project-card" role="group" aria-roledescription="diapositiva"
-            aria-label="3 de 4: SAGEM">
+            aria-label="3 de 5: SAGEM">
             <div class="project-preview">
               <div class="project-browser-bar" aria-hidden="true">
                 <span class="project-browser-dots"><span></span><span></span><span></span></span>
@@ -1465,7 +1532,7 @@
           </article>
 
           <article class="project-card" role="group" aria-roledescription="diapositiva"
-            aria-label="4 de 4: SIPROT">
+            aria-label="4 de 5: SIPROT">
             <div class="project-preview">
               <div class="project-browser-bar" aria-hidden="true">
                 <span class="project-browser-dots"><span></span><span></span><span></span></span>
@@ -1498,6 +1565,43 @@
               <p class="project-private-note">El repositorio no es público porque contiene información operativa sensible.</p>
             </div>
           </article>
+
+          <article class="project-card" role="group" aria-roledescription="diapositiva"
+            aria-label="5 de 5: NexoCorp">
+            <div class="project-preview">
+              <div class="project-browser-bar" aria-hidden="true">
+                <span class="project-browser-dots"><span></span><span></span><span></span></span>
+                <span class="project-browser-label">Repositorio privado · sin demo disponible</span>
+              </div>
+              <div class="project-placeholder" role="img"
+                aria-label="Vista de presentación de NexoCorp. El repositorio está vacío y no hay una demo funcional.">
+                <p class="project-placeholder-label">Proyecto en preparación</p>
+                <h3 class="project-placeholder-title">NexoCorp</h3>
+                <p class="project-placeholder-copy">El repositorio todavía no contiene archivos. Esta vista es una presentación informativa, no una demo del producto.</p>
+              </div>
+            </div>
+            <div class="project-copy">
+              <p class="project-kicker">Repositorio privado · En preparación</p>
+              <h3 class="project-title">NexoCorp</h3>
+              <p class="project-description">
+                Repositorio creado para NexoCorp. Actualmente está vacío, así que todavía no es posible verificar su
+                propósito, funcionalidades o tecnologías ni preparar una demostración fiel.
+              </p>
+              <ul class="project-highlights">
+                <li><i class="bi bi-info-circle" aria-hidden="true"></i><span>Sin código fuente o demo disponible por ahora</span></li>
+                <li><i class="bi bi-info-circle" aria-hidden="true"></i><span>La presentación visual no representa funcionalidades reales</span></li>
+              </ul>
+              <div class="project-technologies" aria-label="Estado del proyecto">
+                <span>Stack no definido</span><span>Repositorio privado</span>
+              </div>
+              <div class="project-links">
+                <a class="project-link" href="https://github.com/YukitaSempai/NexoCorp"
+                  target="_blank" rel="noopener noreferrer">
+                  <i class="bi bi-github" aria-hidden="true"></i> Ver repositorio privado
+                </a>
+              </div>
+            </div>
+          </article>
         </div>
 
         <div class="project-carousel-footer">
@@ -1510,6 +1614,8 @@
               aria-label="Mostrar proyecto 3: SAGEM"></button>
             <button class="project-dot" type="button" data-project-index="3"
               aria-label="Mostrar proyecto 4: SIPROT"></button>
+            <button class="project-dot" type="button" data-project-index="4"
+              aria-label="Mostrar proyecto 5: NexoCorp"></button>
           </div>
           <a class="project-profile-link" href="https://github.com/YukitaSempai?tab=repositories"
             target="_blank" rel="noopener noreferrer">

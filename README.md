@@ -30,6 +30,7 @@ Las vistas locales se cargan de forma diferida en iframes aislados. SAGEM y SIPR
 - [MYGV — código](https://github.com/YukitaSempai/mygv) · [demo](https://yukitasempai.github.io/mygv/) · [vista previa local](./demos/mygv-preview.html)
 - SAGEM — [demo visual local](./demos/sagem-preview.html); el repositorio permanece privado.
 - SIPROT — [demo visual local](./demos/siprot-preview.html); el repositorio permanece privado.
+- NexoCorp — el repositorio está vacío y privado; la tarjeta solo informa que el proyecto está en preparación, sin simular una demo funcional.
 
 ## Contacto
 
