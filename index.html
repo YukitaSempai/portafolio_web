@@ -242,6 +242,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      min-width: 0;
       padding-top: 7rem;
       padding-bottom: 3rem;
       max-width: 1400px;
@@ -726,6 +727,13 @@
       gap: .65rem;
     }
 
+    .project-private-note {
+      margin: 0;
+      color: rgba(245, 243, 238, .48);
+      font-size: .72rem;
+      line-height: 1.5;
+    }
+
     .project-link {
       display: inline-flex;
       align-items: center;
@@ -967,6 +975,7 @@
     }
 
     .contact-item {
+      min-width: 0;
       padding: 2.5rem 2rem;
       border: 1.5px solid var(--ink);
       margin: -1.5px;
@@ -977,6 +986,11 @@
       cursor: default;
       text-decoration: none;
       color: inherit;
+    }
+
+    .contact-item>div {
+      min-width: 0;
+      flex: 1;
     }
 
     .contact-item:hover {
@@ -998,6 +1012,7 @@
     .ci-icon {
       font-size: 1.6rem;
       color: var(--ink);
+      flex: 0 0 auto;
       transition: color .3s;
     }
 
@@ -1015,6 +1030,7 @@
       font-weight: 600;
       font-size: .9rem;
       color: var(--ink);
+      overflow-wrap: anywhere;
       transition: color .3s;
     }
 
@@ -1322,7 +1338,7 @@
       <div class="project-carousel reveal" role="region" aria-roledescription="carrusel"
         aria-label="Proyectos destacados">
         <div class="project-carousel-toolbar">
-          <p class="project-status" id="projectStatus" aria-live="polite">Proyecto 1 de 2: Nanas Design</p>
+          <p class="project-status" id="projectStatus" aria-live="polite">Proyecto 1 de 4: Nanas Design</p>
           <div class="project-controls">
             <button class="project-arrow" id="projectPrevious" type="button" aria-label="Ver proyecto anterior" disabled>
               <i class="bi bi-arrow-left" aria-hidden="true"></i>
@@ -1336,14 +1352,14 @@
         <div class="project-track" id="projectTrack" tabindex="0"
           aria-label="Desliza horizontalmente para explorar los proyectos">
           <article class="project-card" role="group" aria-roledescription="diapositiva"
-            aria-label="1 de 2: Nanas Design">
+            aria-label="1 de 4: Nanas Design">
             <div class="project-preview">
               <div class="project-browser-bar" aria-hidden="true">
                 <span class="project-browser-dots"><span></span><span></span><span></span></span>
                 <span class="project-browser-label">nanas-design.pages.dev</span>
               </div>
               <iframe src="https://nanas-design.pages.dev/" title="Demo interactiva de Nanas Design"
-                loading="lazy" sandbox="allow-scripts allow-forms allow-same-origin"
+                loading="lazy" sandbox="allow-scripts allow-forms"
                 referrerpolicy="no-referrer"></iframe>
             </div>
             <div class="project-copy">
@@ -1375,18 +1391,18 @@
           </article>
 
           <article class="project-card" role="group" aria-roledescription="diapositiva"
-            aria-label="2 de 2: MYGV">
+            aria-label="2 de 4: MYGV">
             <div class="project-preview">
               <div class="project-browser-bar" aria-hidden="true">
                 <span class="project-browser-dots"><span></span><span></span><span></span></span>
-                <span class="project-browser-label">yukitasempai.github.io/mygv</span>
+                <span class="project-browser-label">Vista previa local · demo en línea</span>
               </div>
-              <iframe src="https://yukitasempai.github.io/mygv/" title="Demo interactiva del sitio MYGV"
-                loading="lazy" sandbox="allow-scripts allow-forms allow-same-origin"
+              <iframe src="demos/mygv-preview.html" title="Vista previa demostrativa de MYGV con campos ficticios"
+                loading="lazy" sandbox="allow-scripts"
                 referrerpolicy="no-referrer"></iframe>
             </div>
             <div class="project-copy">
-              <p class="project-kicker">Sitio multi-página · Demo en GitHub Pages</p>
+              <p class="project-kicker">Sitio multi-página · Demo en línea</p>
               <h3 class="project-title">MYGV — Golf Visa</h3>
               <p class="project-description">
                 Sitio bilingüe para presentar una membresía de golf, sus beneficios y campos participantes, con páginas
@@ -1412,6 +1428,76 @@
               </div>
             </div>
           </article>
+
+          <article class="project-card" role="group" aria-roledescription="diapositiva"
+            aria-label="3 de 4: SAGEM">
+            <div class="project-preview">
+              <div class="project-browser-bar" aria-hidden="true">
+                <span class="project-browser-dots"><span></span><span></span><span></span></span>
+                <span class="project-browser-label">Demo local · datos sintéticos</span>
+              </div>
+              <iframe src="demos/sagem-preview.html" title="Vista previa demostrativa de SAGEM con datos sintéticos"
+                loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
+            </div>
+            <div class="project-copy">
+              <p class="project-kicker">Gestión institucional · Demo visual local</p>
+              <h3 class="project-title">SAGEM</h3>
+              <p class="project-description">
+                Plataforma modular de gestión institucional, con áreas de gestión humana, atención a afiliados, unidades
+                de servicio, salud preventiva y reportes.
+              </p>
+              <ul class="project-highlights">
+                <li><i class="bi bi-check2" aria-hidden="true"></i><span>Explora las vistas de personas, atención y reportes</span></li>
+                <li><i class="bi bi-check2" aria-hidden="true"></i><span>Filtra códigos ficticios en la tabla de muestra</span></li>
+                <li><i class="bi bi-info-circle" aria-hidden="true"></i><span>Prototipo independiente; no consulta ni almacena información real</span></li>
+              </ul>
+              <div class="project-technologies" aria-label="Tecnologías utilizadas">
+                <span>PHP</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>MySQL</span>
+              </div>
+              <div class="project-links">
+                <a class="project-link project-link-primary" href="demos/sagem-preview.html"
+                  target="_blank" rel="noopener noreferrer">
+                  <i class="bi bi-arrows-fullscreen" aria-hidden="true"></i> Ampliar demo visual
+                </a>
+              </div>
+              <p class="project-private-note">El repositorio no es público porque contiene información operativa sensible.</p>
+            </div>
+          </article>
+
+          <article class="project-card" role="group" aria-roledescription="diapositiva"
+            aria-label="4 de 4: SIPROT">
+            <div class="project-preview">
+              <div class="project-browser-bar" aria-hidden="true">
+                <span class="project-browser-dots"><span></span><span></span><span></span></span>
+                <span class="project-browser-label">Demo local · datos sintéticos</span>
+              </div>
+              <iframe src="demos/siprot-preview.html" title="Vista previa demostrativa de SIPROT con datos sintéticos"
+                loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
+            </div>
+            <div class="project-copy">
+              <p class="project-kicker">Seguimiento de casos · Demo visual local</p>
+              <h3 class="project-title">SIPROT</h3>
+              <p class="project-description">
+                Sistema PHP para administrar el flujo y seguimiento de casos, con módulos de recepción, revisión,
+                validación, atención administrativa y consulta histórica.
+              </p>
+              <ul class="project-highlights">
+                <li><i class="bi bi-check2" aria-hidden="true"></i><span>Filtra solicitudes ficticias por código y estado</span></li>
+                <li><i class="bi bi-check2" aria-hidden="true"></i><span>Consulta el recorrido ilustrativo de cada caso</span></li>
+                <li><i class="bi bi-info-circle" aria-hidden="true"></i><span>Prototipo independiente; no procesa trámites ni guarda datos</span></li>
+              </ul>
+              <div class="project-technologies" aria-label="Tecnologías utilizadas">
+                <span>PHP</span><span>Bootstrap</span><span>JavaScript</span><span>MySQL</span>
+              </div>
+              <div class="project-links">
+                <a class="project-link project-link-primary" href="demos/siprot-preview.html"
+                  target="_blank" rel="noopener noreferrer">
+                  <i class="bi bi-arrows-fullscreen" aria-hidden="true"></i> Ampliar demo visual
+                </a>
+              </div>
+              <p class="project-private-note">El repositorio no es público porque contiene información operativa sensible.</p>
+            </div>
+          </article>
         </div>
 
         <div class="project-carousel-footer">
@@ -1420,6 +1506,10 @@
               aria-label="Mostrar proyecto 1: Nanas Design" aria-current="true"></button>
             <button class="project-dot" type="button" data-project-index="1"
               aria-label="Mostrar proyecto 2: MYGV"></button>
+            <button class="project-dot" type="button" data-project-index="2"
+              aria-label="Mostrar proyecto 3: SAGEM"></button>
+            <button class="project-dot" type="button" data-project-index="3"
+              aria-label="Mostrar proyecto 4: SIPROT"></button>
           </div>
           <a class="project-profile-link" href="https://github.com/YukitaSempai?tab=repositories"
             target="_blank" rel="noopener noreferrer">

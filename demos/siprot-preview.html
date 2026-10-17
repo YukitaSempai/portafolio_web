@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SIPROT | Demo visual</title>
+  <style>
+    :root { font-family: Inter, "Segoe UI", Arial, sans-serif; color: #202b3b; background: #f1f4f8; font-synthesis: none; }
+    * { box-sizing: border-box; }
+    body { min-width: 0; margin: 0; }
+    button, input, select { font: inherit; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: .9rem clamp(1rem, 3vw, 1.8rem); border-bottom: 1px solid #e2e7ee; background: #fff; }
+    .brand { font-size: 1rem; font-weight: 800; letter-spacing: .09em; }
+    .brand small { display: block; margin-top: .18rem; color: #778396; font-size: .61rem; font-weight: 600; letter-spacing: .12em; }
+    .demo-label { padding: .45rem .7rem; border: 1px solid #e8c98a; border-radius: 999px; background: #fff8e9; color: #78530a; font-size: .65rem; font-weight: 800; text-align: center; }
+    main { width: min(1100px, 100%); margin: auto; padding: clamp(1rem, 3vw, 2rem); }
+    .notice { margin: 0 0 1rem; padding: .75rem 1rem; border-left: 3px solid #e0a22b; background: #fff8e9; color: #624c24; font-size: .74rem; line-height: 1.5; }
+    .heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; margin: 1.2rem 0; }
+    .eyebrow { margin: 0 0 .45rem; color: #68778b; font-size: .64rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(1.4rem, 4vw, 2rem); letter-spacing: -.04em; }
+    .subheading { margin: .45rem 0 0; color: #778396; font-size: .8rem; line-height: 1.5; }
+    .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; margin-bottom: 1rem; }
+    .metric, .case-panel, .detail-panel { border: 1px solid #e0e6ee; border-radius: 11px; background: #fff; }
+    .metric { padding: .85rem 1rem; }
+    .metric span { display: block; color: #7a8798; font-size: .68rem; }
+    .metric strong { display: block; margin-top: .3rem; font-size: 1.35rem; letter-spacing: -.04em; }
+    .metric em { color: #8995a5; font-size: .62rem; font-style: normal; }
+    .layout { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(220px, .75fr); gap: .8rem; }
+    .case-panel, .detail-panel { min-width: 0; padding: 1rem; }
+    .panel-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .7rem; margin-bottom: .85rem; }
+    h2 { margin: 0; font-size: .88rem; }
+    .filters { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .filters input, .filters select { min-width: 0; padding: .55rem .65rem; border: 1px solid #d9e1eb; border-radius: 7px; background: #fff; color: #354256; font-size: .68rem; }
+    .filters input { width: min(180px, 100%); }
+    .case-list { display: grid; gap: .5rem; }
+    .case {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      width: 100%;
+      padding: .75rem;
+      border: 1px solid #e8edf3;
+      border-radius: 8px;
+      background: #fff;
+      color: inherit;
+      cursor: pointer;
+      text-align: left;
+    }
+    .case:hover, .case[aria-pressed="true"] { border-color: #526d8d; background: #f6f9fc; }
+    .case-copy { min-width: 0; }
+    .case-copy strong { display: block; color: #304c6b; font-size: .72rem; }
+    .case-copy span { display: block; margin-top: .25rem; color: #8591a1; font-size: .65rem; }
+    .status { flex: 0 0 auto; padding: .3rem .5rem; border-radius: 999px; background: #eef3f8; color: #516780; font-size: .6rem; font-weight: 700; }
+    .empty { padding: 1rem; color: #778396; font-size: .75rem; text-align: center; }
+    .detail-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; }
+    .detail-code { margin: 0; color: #304c6b; font-size: 1rem; font-weight: 800; }
+    .detail-label { margin: .25rem 0 0; color: #8692a2; font-size: .65rem; }
+    .timeline { display: grid; gap: 0; margin: 1rem 0 0; padding: 0; list-style: none; }
+    .timeline li { position: relative; padding: 0 0 .9rem 1.25rem; color: #657287; font-size: .68rem; line-height: 1.45; }
+    .timeline li::before { position: absolute; top: .2rem; left: .1rem; width: .5rem; height: .5rem; border-radius: 50%; background: #92a4b9; content: ""; }
+    .timeline li:not(:last-child)::after { position: absolute; top: .7rem; bottom: 0; left: .32rem; width: 1px; background: #dbe2ea; content: ""; }
+    .timeline strong { display: block; color: #394a60; font-size: .68rem; }
+    @media (max-width: 660px) {
+      .layout { grid-template-columns: 1fr; }
+      .heading { align-items: flex-start; flex-direction: column; }
+      .metrics { gap: .45rem; }
+      .metric { padding: .7rem; }
+      .metric span { font-size: .6rem; }
+      .metric strong { font-size: 1.1rem; }
+      .metric em { font-size: .56rem; }
+      .panel-heading { align-items: stretch; flex-direction: column; }
+      .filters { display: grid; grid-template-columns: 1fr 1fr; }
+      .filters input { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">SIPROT<small>SEGUIMIENTO DE CASOS</small></div>
+    <span class="demo-label">DEMO VISUAL · DATOS SINTÉTICOS</span>
+  </header>
+  <main>
+    <p class="notice">Prototipo local para visualizar etapas y estados de seguimiento. No se conecta a sistemas, no consulta expedientes y no guarda datos.</p>
+    <div class="heading">
+      <div>
+        <p class="eyebrow">Bandeja de muestra</p>
+        <h1>Seguimiento de casos</h1>
+        <p class="subheading">Explora filtros, estados y una línea de proceso completamente ficticios.</p>
+      </div>
+    </div>
+    <section class="metrics" aria-label="Indicadores ilustrativos">
+      <article class="metric"><span>Casos de ejemplo</span><strong>24</strong><em>Cifra sintética</em></article>
+      <article class="metric"><span>En revisión</span><strong>08</strong><em>Cifra sintética</em></article>
+      <article class="metric"><span>Concluidos</span><strong>16</strong><em>Cifra sintética</em></article>
+    </section>
+    <div class="layout">
+      <section class="case-panel" aria-label="Casos ficticios">
+        <div class="panel-heading">
+          <h2>Solicitudes de ejemplo</h2>
+          <div class="filters">
+            <input id="search" type="search" aria-label="Filtrar por código ficticio" placeholder="Buscar código demo">
+            <select id="statusFilter" aria-label="Filtrar por estado">
+              <option value="">Todos los estados</option>
+              <option value="Recibido">Recibido</option>
+              <option value="En revisión">En revisión</option>
+              <option value="En trámite">En trámite</option>
+              <option value="Concluido">Concluido</option>
+            </select>
+          </div>
+        </div>
+        <div class="case-list" id="caseList" aria-live="polite"></div>
+      </section>
+      <aside class="detail-panel" aria-live="polite">
+        <div class="detail-top">
+          <div>
+            <p class="detail-code" id="detailCode">DEMO-401</p>
+            <p class="detail-label">Folio ficticio · solo vista de muestra</p>
+          </div>
+          <span class="status" id="detailStatus">En revisión</span>
+        </div>
+        <h2 style="margin-top:1.2rem">Etapas ilustrativas</h2>
+        <ol class="timeline">
+          <li><strong>Recepción</strong>Registro de muestra</li>
+          <li><strong>Revisión administrativa</strong>Etapa demostrativa</li>
+          <li><strong>Seguimiento</strong>Estado ilustrativo</li>
+        </ol>
+        <p class="subheading">Los pasos no representan un trámite real ni generan gestiones.</p>
+      </aside>
+    </div>
+  </main>
+  <script>
+    const cases = [
+      { code: 'DEMO-401', status: 'En revisión', stage: 'Revisión administrativa' },
+      { code: 'DEMO-402', status: 'Recibido', stage: 'Recepción' },
+      { code: 'DEMO-403', status: 'En trámite', stage: 'Seguimiento' },
+      { code: 'DEMO-404', status: 'Concluido', stage: 'Cierre demostrativo' }
+    ];
+    const list = document.getElementById('caseList');
+    const search = document.getElementById('search');
+    const statusFilter = document.getElementById('statusFilter');
+    let selectedCode = cases[0].code;
+
+    function selectCase(record) {
+      selectedCode = record.code;
+      document.getElementById('detailCode').textContent = record.code;
+      document.getElementById('detailStatus').textContent = record.status;
+      document.querySelector('.timeline li:nth-child(2) strong').textContent = record.stage;
+      renderCases();
+    }
+
+    function renderCases() {
+      const query = search.value.trim().toLowerCase();
+      const selectedStatus = statusFilter.value;
+      const visible = cases.filter(record =>
+        record.code.toLowerCase().includes(query) &&
+        (!selectedStatus || record.status === selectedStatus)
+      );
+      list.replaceChildren();
+      if (!visible.length) {
+        const empty = document.createElement('p');
+        empty.className = 'empty';
+        empty.textContent = 'No hay coincidencias en los casos de muestra.';
+        list.append(empty);
+        return;
+      }
+      visible.forEach(record => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'case';
+        button.setAttribute('aria-pressed', String(record.code === selectedCode));
+        const copy = document.createElement('span');
+        copy.className = 'case-copy';
+        const code = document.createElement('strong');
+        code.textContent = record.code;
+        const stage = document.createElement('span');
+        stage.textContent = record.stage;
+        const status = document.createElement('span');
+        status.className = 'status';
+        status.textContent = record.status;
+        copy.append(code, stage);
+        button.append(copy, status);
+        button.addEventListener('click', () => selectCase(record));
+        list.append(button);
+      });
+    }
+
+    search.addEventListener('input', renderCases);
+    statusFilter.addEventListener('change', renderCases);
+    renderCases();
+  </script>
+</body>
+</html>
