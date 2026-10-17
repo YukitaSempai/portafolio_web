@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NexoCorp | Demo del ecosistema</title>
+  <style>
+    :root {
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: #1e293b;
+      background: #f8fafc;
+      font-synthesis: none;
+    }
+
+    * { box-sizing: border-box; }
+    body { min-width: 0; margin: 0; }
+    button { font: inherit; }
+    button:focus-visible, summary:focus-visible { outline: 3px solid #f59e0b; outline-offset: 3px; }
+    .shell { min-height: 100%; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      padding: .85rem clamp(.85rem, 3vw, 1.5rem);
+      border-bottom: 1px solid #e2e8f0;
+      background: #fff;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      color: #312e81;
+      font-size: .95rem;
+      font-weight: 850;
+      letter-spacing: -.035em;
+      white-space: nowrap;
+    }
+    .brand-mark {
+      display: grid;
+      width: 1.8rem;
+      height: 1.8rem;
+      place-items: center;
+      border-radius: .55rem;
+      background: #4f46e5;
+      color: #fff;
+      font-size: .7rem;
+    }
+    .demo-badge {
+      padding: .38rem .55rem;
+      border: 1px solid #f4d393;
+      border-radius: 999px;
+      background: #fffbeb;
+      color: #854d0e;
+      font-size: .58rem;
+      font-weight: 800;
+      text-align: center;
+    }
+    main { width: min(100%, 940px); margin: auto; padding: clamp(.85rem, 2.4vw, 1.4rem); }
+    .notice {
+      margin: 0 0 .85rem;
+      padding: .65rem .8rem;
+      border-left: 3px solid #f59e0b;
+      background: #fffbeb;
+      color: #684b17;
+      font-size: .66rem;
+      line-height: 1.5;
+    }
+    .ecosystem-nav {
+      display: flex;
+      gap: .35rem;
+      overflow-x: auto;
+      padding: .25rem .1rem .7rem;
+      scrollbar-width: thin;
+    }
+    .site-tab {
+      flex: 0 0 auto;
+      padding: .48rem .63rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 999px;
+      background: #fff;
+      color: #64748b;
+      cursor: pointer;
+      font-size: .64rem;
+      font-weight: 700;
+    }
+    .site-tab[aria-selected="true"] {
+      border-color: #4f46e5;
+      background: #4f46e5;
+      color: #fff;
+    }
+    .site-view[hidden] { display: none; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(1.3rem, 4vw, 2.3rem);
+      border-radius: 14px;
+      background:
+        radial-gradient(ellipse at 80% 10%, rgba(129, 140, 248, .28), transparent 42%),
+        #1e1b4b;
+      color: #fff;
+    }
+    .eyebrow {
+      margin: 0 0 .7rem;
+      color: #c7d2fe;
+      font-size: .59rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    h1 { max-width: 650px; margin: 0; font-size: clamp(1.4rem, 4vw, 2.15rem); letter-spacing: -.045em; line-height: 1.12; }
+    .hero p:last-of-type { max-width: 590px; margin: .8rem 0 0; color: #dbeafe; font-size: .76rem; line-height: 1.6; }
+    .hero strong { color: #a5b4fc; }
+    .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; margin-top: 1rem; }
+    .stat { padding: .7rem; border: 1px solid #e2e8f0; border-radius: 9px; background: #fff; }
+    .stat strong { display: block; color: #312e81; font-size: 1.05rem; }
+    .stat span { color: #64748b; font-size: .61rem; }
+    .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: .75rem; margin: 1.2rem 0 .65rem; }
+    h2 { margin: 0; color: #0f172a; font-size: .88rem; letter-spacing: -.02em; }
+    .muted { margin: .25rem 0 0; color: #64748b; font-size: .65rem; line-height: 1.5; }
+    .site-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; }
+    .site-card {
+      display: block;
+      min-width: 0;
+      padding: .75rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
+      background: #fff;
+      color: inherit;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color .15s, transform .15s, box-shadow .15s;
+    }
+    .site-card:hover { transform: translateY(-2px); border-color: #a5b4fc; box-shadow: 0 8px 18px rgba(49, 46, 129, .08); }
+    .site-card span { display: block; overflow: hidden; color: #6366f1; font-size: .55rem; text-overflow: ellipsis; white-space: nowrap; }
+    .site-card strong { display: block; margin-top: .35rem; color: #1e293b; font-size: .68rem; }
+    .site-card small { display: block; margin-top: .25rem; color: #64748b; font-size: .59rem; line-height: 1.45; }
+    .view-panel {
+      min-height: 260px;
+      padding: clamp(.85rem, 2.5vw, 1.2rem);
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      background: #fff;
+    }
+    .mini-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; margin-top: .8rem; }
+    .mini-card { min-width: 0; padding: .75rem; border: 1px solid #e8edf4; border-radius: 9px; background: #fff; }
+    .mini-card strong { display: block; color: #1e293b; font-size: .68rem; line-height: 1.4; }
+    .mini-card span { display: block; margin-top: .35rem; color: #64748b; font-size: .6rem; line-height: 1.45; }
+    .swatches { display: flex; gap: .35rem; margin: .9rem 0; }
+    .swatch { width: 2rem; height: 1.2rem; border-radius: 4px; background: #4f46e5; }
+    .swatch:nth-child(2) { background: #f59e0b; }
+    .swatch:nth-child(3) { background: #0f172a; }
+    .swatch:nth-child(4) { background: #f1f5f9; border: 1px solid #dbe1e8; }
+    .filters { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .75rem; }
+    .filter {
+      padding: .42rem .58rem;
+      border: 1px solid #dbe1e8;
+      border-radius: 999px;
+      background: #fff;
+      color: #64748b;
+      cursor: pointer;
+      font-size: .61rem;
+      font-weight: 700;
+    }
+    .filter[aria-pressed="true"] { border-color: #4f46e5; background: #4f46e5; color: #fff; }
+    .products { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; margin-top: .75rem; }
+    .product { padding: .7rem; border: 1px solid #e8edf4; border-radius: 9px; background: #fff; }
+    .product[hidden] { display: none; }
+    .product-art { height: 3rem; display: grid; place-items: center; border-radius: 6px; background: linear-gradient(135deg,#818cf8,#3730a3); color: #fff; font-size: .58rem; font-weight: 800; }
+    .product:nth-child(2) .product-art { background: linear-gradient(135deg,#fbbf24,#d97706); }
+    .product:nth-child(3) .product-art { background: linear-gradient(135deg,#334155,#0f172a); }
+    .product strong { display: block; margin-top: .45rem; font-size: .62rem; }
+    .product small { display: block; margin-top: .2rem; color: #64748b; font-size: .56rem; }
+    .faq { margin-top: .65rem; border: 1px solid #e8edf4; border-radius: 8px; }
+    .faq summary { padding: .7rem; color: #334155; cursor: pointer; font-size: .66rem; font-weight: 700; }
+    .faq p { margin: 0; padding: 0 .7rem .7rem; color: #64748b; font-size: .63rem; line-height: 1.5; }
+    .dashboard-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; margin-top: .75rem; }
+    .dashboard-stat { padding: .7rem; border: 1px solid #e8edf4; border-radius: 8px; }
+    .dashboard-stat span { display: block; color: #64748b; font-size: .58rem; }
+    .dashboard-stat strong { display: block; margin-top: .28rem; color: #312e81; font-size: .92rem; }
+    .chart { display: flex; align-items: flex-end; gap: .4rem; height: 90px; margin-top: .9rem; padding: .5rem .65rem 0; border-bottom: 1px solid #e2e8f0; background: #f8fafc; }
+    .chart span { flex: 1; border-radius: 4px 4px 0 0; background: linear-gradient(#818cf8,#4f46e5); }
+    .tech-note { margin: .75rem 0 0; color: #64748b; font-size: .59rem; line-height: 1.5; }
+    @media (max-width: 520px) {
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .demo-badge { align-self: flex-start; }
+      .site-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .mini-grid, .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-head { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">N</span>NexoCorp</div>
+    <span class="demo-badge">DEMO ESTÁTICA · CONTENIDO DE EJEMPLO</span>
+  </header>
+  <main>
+    <p class="notice">Vista interactiva local del ecosistema HTML de NexoCorp. Filtros y navegación funcionan en el navegador; panel, cifras y formularios son demostrativos y no usan backend.</p>
+    <nav class="ecosystem-nav" role="tablist" aria-label="Explorar sitios del ecosistema">
+      <button class="site-tab" type="button" role="tab" id="tab-corporativo" aria-controls="view-corporativo" aria-selected="true" data-view="corporativo">Corporativo</button>
+      <button class="site-tab" type="button" role="tab" id="tab-marca" aria-controls="view-marca" aria-selected="false" data-view="marca" tabindex="-1">Marca</button>
+      <button class="site-tab" type="button" role="tab" id="tab-blog" aria-controls="view-blog" aria-selected="false" data-view="blog" tabindex="-1">Blog</button>
+      <button class="site-tab" type="button" role="tab" id="tab-tienda" aria-controls="view-tienda" aria-selected="false" data-view="tienda" tabindex="-1">Tienda</button>
+      <button class="site-tab" type="button" role="tab" id="tab-soporte" aria-controls="view-soporte" aria-selected="false" data-view="soporte" tabindex="-1">Soporte</button>
+      <button class="site-tab" type="button" role="tab" id="tab-panel" aria-controls="view-panel" aria-selected="false" data-view="panel" tabindex="-1">Panel</button>
+    </nav>
+
+    <section class="site-view" id="view-corporativo" role="tabpanel" aria-labelledby="tab-corporativo">
+      <div class="hero">
+        <p class="eyebrow">Un dominio · múltiples subdominios · una sola identidad</p>
+        <h1>Toda tu presencia digital, conectada bajo un mismo ecosistema.</h1>
+        <p>NexoCorp reúne sitio corporativo, marca, tienda, blog y áreas privadas con una identidad visual compartida.</p>
+      </div>
+      <div class="stats" aria-label="Métricas ilustrativas">
+        <div class="stat"><strong>01 + 05</strong><span>Sitio principal y vistas</span></div>
+        <div class="stat"><strong>HTML</strong><span>Páginas estáticas</span></div>
+        <div class="stat"><strong>Responsive</strong><span>Diseño adaptable</span></div>
+      </div>
+      <div class="section-head">
+        <div><h2>Un sitio para cada necesidad</h2><p class="muted">Selecciona una tarjeta para explorar la vista.</p></div>
+      </div>
+      <div class="site-grid">
+        <button class="site-card" type="button" data-open-view="corporativo"><span>nexocorp.com</span><strong>Sitio corporativo</strong><small>Presentación, servicios y arquitectura.</small></button>
+        <button class="site-card" type="button" data-open-view="marca"><span>marca.nexocorp.com</span><strong>Marca & portafolio</strong><small>Identidad visual y proyectos.</small></button>
+        <button class="site-card" type="button" data-open-view="blog"><span>blog.nexocorp.com</span><strong>Blog & noticias</strong><small>Artículos y contenidos.</small></button>
+        <button class="site-card" type="button" data-open-view="tienda"><span>tienda.nexocorp.com</span><strong>Tienda & catálogo</strong><small>Productos por categoría.</small></button>
+        <button class="site-card" type="button" data-open-view="soporte"><span>soporte.nexocorp.com</span><strong>Centro de ayuda</strong><small>Preguntas y canales de soporte.</small></button>
+        <button class="site-card" type="button" data-open-view="panel"><span>panel.nexocorp.com</span><strong>Panel privado</strong><small>Maqueta de tablero administrativo.</small></button>
+      </div>
+    </section>
+
+    <section class="site-view" id="view-marca" role="tabpanel" aria-labelledby="tab-marca" hidden>
+      <div class="view-panel">
+        <p class="eyebrow" style="color:#4f46e5">Marca & portafolio</p>
+        <h1 style="color:#0f172a">Un sistema visual para todos los sitios.</h1>
+        <p class="muted">La página de marca presenta identidad, componentes reutilizables y una selección de proyectos ficticios del template.</p>
+        <div class="swatches" aria-label="Paleta de muestra"><span class="swatch"></span><span class="swatch"></span><span class="swatch"></span><span class="swatch"></span></div>
+        <div class="mini-grid">
+          <article class="mini-card"><strong>Identidad visual</strong><span>Paleta índigo, ámbar y neutros.</span></article>
+          <article class="mini-card"><strong>Proyectos seleccionados</strong><span>Galería de trabajos de ejemplo.</span></article>
+          <article class="mini-card"><strong>Componentes</strong><span>Estilos compartidos entre páginas.</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="site-view" id="view-blog" role="tabpanel" aria-labelledby="tab-blog" hidden>
+      <div class="view-panel">
+        <p class="eyebrow" style="color:#4f46e5">Blog & noticias</p>
+        <h1 style="color:#0f172a">Ideas para construir en digital.</h1>
+        <p class="muted">Una sección editorial con artículos, categorías y contenido de muestra.</p>
+        <div class="mini-grid">
+          <article class="mini-card"><strong>Diseño corporativo</strong><span>Principios para una identidad web consistente.</span></article>
+          <article class="mini-card"><strong>Tailwind en sitios estáticos</strong><span>Buenas prácticas de diseño y composición.</span></article>
+          <article class="mini-card"><strong>Accesibilidad web</strong><span>Una lista de verificación para interfaces.</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="site-view" id="view-tienda" role="tabpanel" aria-labelledby="tab-tienda" hidden>
+      <div class="view-panel">
+        <p class="eyebrow" style="color:#4f46e5">Tienda & catálogo</p>
+        <h1 style="color:#0f172a">Soluciones y productos para tu empresa.</h1>
+        <p class="muted">Prueba los filtros de categoría. El catálogo es de muestra y no procesa compras.</p>
+        <div class="filters" role="group" aria-label="Filtrar productos de ejemplo">
+          <button class="filter" type="button" data-filter="todos" aria-pressed="true">Todos</button>
+          <button class="filter" type="button" data-filter="plantillas" aria-pressed="false">Plantillas</button>
+          <button class="filter" type="button" data-filter="diseno" aria-pressed="false">Diseño</button>
+          <button class="filter" type="button" data-filter="servicios" aria-pressed="false">Servicios</button>
+        </div>
+        <div class="products" id="products">
+          <article class="product" data-category="plantillas"><div class="product-art">Plantilla web</div><strong>Plantilla corporativa</strong><small>Artículo de ejemplo</small></article>
+          <article class="product" data-category="diseno"><div class="product-art">Diseño</div><strong>Identidad visual</strong><small>Artículo de ejemplo</small></article>
+          <article class="product" data-category="servicios"><div class="product-art">Servicio digital</div><strong>Configuración web</strong><small>Artículo de ejemplo</small></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="site-view" id="view-soporte" role="tabpanel" aria-labelledby="tab-soporte" hidden>
+      <div class="view-panel">
+        <p class="eyebrow" style="color:#4f46e5">Centro de ayuda</p>
+        <h1 style="color:#0f172a">Respuestas para explorar la plataforma.</h1>
+        <p class="muted">La página de soporte incluye preguntas frecuentes y una maqueta de contacto. El formulario original no envía información.</p>
+        <details class="faq"><summary>¿Qué incluye el ecosistema?</summary><p>Una página corporativa y cinco vistas estáticas para marca, blog, tienda, soporte y panel.</p></details>
+        <details class="faq"><summary>¿La tienda procesa pedidos?</summary><p>No. El catálogo y sus controles son demostrativos; no se conecta a pagos ni a un inventario.</p></details>
+        <details class="faq"><summary>¿El panel requiere una cuenta?</summary><p>En este prototipo es una maqueta visual con datos ficticios, sin autenticación ni backend.</p></details>
+      </div>
+    </section>
+
+    <section class="site-view" id="view-panel" role="tabpanel" aria-labelledby="tab-panel" hidden>
+      <div class="view-panel">
+        <p class="eyebrow" style="color:#4f46e5">Panel · vista de muestra</p>
+        <h1 style="color:#0f172a">Resumen del ecosistema</h1>
+        <p class="muted">Maqueta de tablero; las métricas son ficticias y no corresponden a actividad real.</p>
+        <div class="dashboard-grid">
+          <div class="dashboard-stat"><span>Ingresos del mes · ficticio</span><strong>$84,250</strong></div>
+          <div class="dashboard-stat"><span>Pedidos · ficticio</span><strong>326</strong></div>
+          <div class="dashboard-stat"><span>Sitios del ecosistema</span><strong>06</strong></div>
+        </div>
+        <div class="section-head"><div><h2>Actividad ilustrativa</h2><p class="muted">Gráfico estático de ejemplo, no conectado a datos.</p></div></div>
+        <div class="chart" role="img" aria-label="Gráfico estático de ejemplo"><span style="height:35%"></span><span style="height:55%"></span><span style="height:45%"></span><span style="height:75%"></span><span style="height:90%"></span><span style="height:60%"></span><span style="height:80%"></span></div>
+      </div>
+    </section>
+    <p class="tech-note">Tecnologías del proyecto: HTML5, Tailwind CSS por CDN y JavaScript nativo. El original puede verse localmente; esta vista reducida no depende de servicios externos.</p>
+  </main>
+  <script>
+    const tabs = [...document.querySelectorAll('[data-view]')];
+    const views = [...document.querySelectorAll('.site-view')];
+
+    function openView(name) {
+      tabs.forEach(tab => {
+        const selected = tab.dataset.view === name;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+      });
+      views.forEach(view => {
+        view.hidden = view.id !== `view-${name}`;
+      });
+    }
+
+    tabs.forEach(tab => tab.addEventListener('click', () => openView(tab.dataset.view)));
+    document.querySelectorAll('[data-open-view]').forEach(card =>
+      card.addEventListener('click', () => {
+        openView(card.dataset.openView);
+        document.getElementById(`tab-${card.dataset.openView}`).focus();
+      })
+    );
+    document.querySelectorAll('[data-filter]').forEach(button => {
+      button.addEventListener('click', () => {
+        const category = button.dataset.filter;
+        document.querySelectorAll('[data-filter]').forEach(filter =>
+          filter.setAttribute('aria-pressed', String(filter === button))
+        );
+        document.querySelectorAll('[data-category]').forEach(product => {
+          product.hidden = category !== 'todos' && product.dataset.category !== category;
+        });
+      });
+    });
+    document.querySelector('[role="tablist"]').addEventListener('keydown', event => {
+      const currentIndex = tabs.indexOf(document.activeElement);
+      if (currentIndex < 0 || !['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      const nextIndex = event.key === 'Home' ? 0
+        : event.key === 'End' ? tabs.length - 1
+        : (currentIndex + (event.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length;
+      tabs[nextIndex].focus();
+      openView(tabs[nextIndex].dataset.view);
+    });
+  </script>
+</body>
+</html>
