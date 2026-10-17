@@ -495,6 +495,310 @@
       color: var(--mid);
     }
 
+    /* ── PROJECTS ── */
+    #projects {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    #projects .section-heading {
+      color: var(--paper);
+      margin-bottom: 1rem;
+    }
+
+    #projects .section-tag {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .projects-intro {
+      max-width: 620px;
+      margin-bottom: 2.5rem;
+      color: rgba(245, 243, 238, .62);
+      line-height: 1.7;
+    }
+
+    .project-carousel {
+      border-top: 1px solid rgba(245, 243, 238, .16);
+      padding-top: 1.25rem;
+    }
+
+    .project-carousel-toolbar,
+    .project-carousel-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .project-carousel-toolbar {
+      margin-bottom: 1rem;
+    }
+
+    .project-status {
+      margin: 0;
+      color: rgba(245, 243, 238, .65);
+      font-size: .82rem;
+      letter-spacing: .04em;
+    }
+
+    .project-controls {
+      display: flex;
+      gap: .5rem;
+    }
+
+    .project-arrow {
+      width: 2.75rem;
+      height: 2.75rem;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(245, 243, 238, .3);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--paper);
+      cursor: pointer;
+      transition: color .2s, background .2s, border-color .2s, opacity .2s;
+    }
+
+    .project-arrow:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .project-arrow:disabled {
+      cursor: not-allowed;
+      opacity: .35;
+    }
+
+    .project-track {
+      position: relative;
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scrollbar-color: rgba(245, 243, 238, .35) transparent;
+      scrollbar-width: thin;
+      padding-bottom: .8rem;
+    }
+
+    .project-track::-webkit-scrollbar {
+      height: 5px;
+    }
+
+    .project-track::-webkit-scrollbar-thumb {
+      background: rgba(245, 243, 238, .35);
+      border-radius: 5px;
+    }
+
+    .project-card {
+      flex: 0 0 100%;
+      min-width: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr);
+      background: #111118;
+      border: 1px solid rgba(245, 243, 238, .14);
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    .project-preview {
+      min-width: 0;
+      overflow: hidden;
+      background: #e9e6df;
+      border-right: 1px solid rgba(245, 243, 238, .14);
+    }
+
+    .project-browser-bar {
+      height: 2.6rem;
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      padding: 0 .9rem;
+      background: #211f26;
+      color: rgba(245, 243, 238, .65);
+      font-size: .72rem;
+    }
+
+    .project-browser-dots {
+      display: flex;
+      gap: .3rem;
+      margin-right: .45rem;
+    }
+
+    .project-browser-dots span {
+      width: .48rem;
+      height: .48rem;
+      border-radius: 50%;
+      background: rgba(245, 243, 238, .3);
+    }
+
+    .project-browser-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .project-preview iframe {
+      display: block;
+      width: 100%;
+      height: 430px;
+      border: 0;
+      background: var(--paper);
+    }
+
+    .project-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: clamp(1.5rem, 3.2vw, 2.75rem);
+    }
+
+    .project-kicker {
+      margin-bottom: .8rem;
+      color: var(--accent);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .project-title {
+      margin: 0 0 .85rem;
+      color: var(--paper);
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.55rem, 3vw, 2.15rem);
+      font-weight: 800;
+      letter-spacing: -.035em;
+      line-height: 1.05;
+    }
+
+    .project-description {
+      margin-bottom: 1.35rem;
+      color: rgba(245, 243, 238, .63);
+      font-size: .92rem;
+      line-height: 1.7;
+    }
+
+    .project-highlights {
+      display: grid;
+      gap: .65rem;
+      width: 100%;
+      margin: 0 0 1.4rem;
+      padding: 0;
+      color: rgba(245, 243, 238, .82);
+      font-size: .82rem;
+      list-style: none;
+    }
+
+    .project-highlights li {
+      display: flex;
+      align-items: flex-start;
+      gap: .55rem;
+    }
+
+    .project-highlights i {
+      padding-top: .12rem;
+      color: var(--accent);
+    }
+
+    .project-technologies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      margin: auto 0 1.5rem;
+      padding-top: .5rem;
+    }
+
+    .project-technologies span {
+      padding: .35rem .6rem;
+      border: 1px solid rgba(245, 243, 238, .18);
+      border-radius: 999px;
+      color: rgba(245, 243, 238, .72);
+      font-size: .68rem;
+      letter-spacing: .025em;
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .65rem;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      min-height: 2.75rem;
+      padding: .65rem .9rem;
+      border: 1px solid rgba(245, 243, 238, .3);
+      color: var(--paper);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .035em;
+      text-decoration: none;
+      transition: color .2s, background .2s, border-color .2s;
+    }
+
+    .project-link:hover {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .project-link-primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .project-link-primary:hover {
+      border-color: #e24300;
+      background: #e24300;
+    }
+
+    .project-carousel-footer {
+      margin-top: 1rem;
+    }
+
+    .project-dots {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+    }
+
+    .project-dot {
+      width: .6rem;
+      height: .6rem;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(245, 243, 238, .3);
+      cursor: pointer;
+      transition: width .2s, background .2s;
+    }
+
+    .project-dot[aria-current="true"] {
+      width: 1.8rem;
+      background: var(--accent);
+    }
+
+    .project-profile-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      color: rgba(245, 243, 238, .65);
+      font-size: .76rem;
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .project-profile-link:hover {
+      color: var(--paper);
+    }
+
     /* ── SKILLS ── */
     #skills {
       background: var(--ink);
@@ -864,11 +1168,46 @@
         gap: .25rem;
       }
 
+      .project-card {
+        grid-template-columns: 1fr;
+      }
+
+      .project-preview {
+        border-right: 0;
+        border-bottom: 1px solid rgba(245, 243, 238, .14);
+      }
+
+      .project-preview iframe {
+        height: 340px;
+      }
+
+      .project-copy {
+        padding: 1.5rem;
+      }
+
+      .project-carousel-footer {
+        align-items: flex-start;
+      }
+
       .whatsapp-float {
         right: 1rem;
         bottom: 1rem;
         width: 3.25rem;
         height: 3.25rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .project-preview iframe {
+        height: 290px;
+      }
+
+      .project-carousel-toolbar {
+        align-items: flex-end;
+      }
+
+      .project-profile-link {
+        max-width: 55%;
       }
     }
   </style>
@@ -881,6 +1220,7 @@
     <a href="#hero" class="nav-logo" aria-label="Ir al inicio">JC.</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#areas">Áreas</a></li>
+      <li><a href="#projects">Proyectos</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#about">Sobre mí</a></li>
       <li><a href="#cv">Currículum</a></li>
@@ -967,11 +1307,134 @@
     </div>
   </section>
 
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container-custom">
+      <div class="reveal">
+        <span class="section-tag">02 — Proyectos</span>
+        <h2 class="section-heading">Explora lo que<br>he construido</h2>
+        <p class="projects-intro">
+          Prueba las demos, navega por cada experiencia y descubre las decisiones de diseño y desarrollo detrás de cada
+          proyecto.
+        </p>
+      </div>
+
+      <div class="project-carousel reveal" role="region" aria-roledescription="carrusel"
+        aria-label="Proyectos destacados">
+        <div class="project-carousel-toolbar">
+          <p class="project-status" id="projectStatus" aria-live="polite">Proyecto 1 de 2: Nanas Design</p>
+          <div class="project-controls">
+            <button class="project-arrow" id="projectPrevious" type="button" aria-label="Ver proyecto anterior" disabled>
+              <i class="bi bi-arrow-left" aria-hidden="true"></i>
+            </button>
+            <button class="project-arrow" id="projectNext" type="button" aria-label="Ver proyecto siguiente">
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="project-track" id="projectTrack" tabindex="0"
+          aria-label="Desliza horizontalmente para explorar los proyectos">
+          <article class="project-card" role="group" aria-roledescription="diapositiva"
+            aria-label="1 de 2: Nanas Design">
+            <div class="project-preview">
+              <div class="project-browser-bar" aria-hidden="true">
+                <span class="project-browser-dots"><span></span><span></span><span></span></span>
+                <span class="project-browser-label">nanas-design.pages.dev</span>
+              </div>
+              <iframe src="https://nanas-design.pages.dev/" title="Demo interactiva de Nanas Design"
+                loading="lazy" sandbox="allow-scripts allow-forms allow-same-origin"
+                referrerpolicy="no-referrer"></iframe>
+            </div>
+            <div class="project-copy">
+              <p class="project-kicker">Sitio de marca · Demo activa</p>
+              <h3 class="project-title">Nanas Design</h3>
+              <p class="project-description">
+                Experiencia web para una marca de arreglos florales artesanales, con un catálogo visual que presenta sus
+                productos, galería y proceso de elaboración.
+              </p>
+              <ul class="project-highlights">
+                <li><i class="bi bi-check2" aria-hidden="true"></i><span>Catálogo de productos y galería visual</span></li>
+                <li><i class="bi bi-check2" aria-hidden="true"></i><span>Navegación adaptable con desplazamiento suave</span></li>
+                <li><i class="bi bi-check2" aria-hidden="true"></i><span>Identidad visual floral y microinteracciones</span></li>
+              </ul>
+              <div class="project-technologies" aria-label="Tecnologías utilizadas">
+                <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Bootstrap</span>
+              </div>
+              <div class="project-links">
+                <a class="project-link project-link-primary" href="https://nanas-design.pages.dev/"
+                  target="_blank" rel="noopener noreferrer">
+                  <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i> Abrir demo
+                </a>
+                <a class="project-link" href="https://github.com/YukitaSempai/nanas-design"
+                  target="_blank" rel="noopener noreferrer">
+                  <i class="bi bi-github" aria-hidden="true"></i> Ver código
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" role="group" aria-roledescription="diapositiva"
+            aria-label="2 de 2: MYGV">
+            <div class="project-preview">
+              <div class="project-browser-bar" aria-hidden="true">
+                <span class="project-browser-dots"><span></span><span></span><span></span></span>
+                <span class="project-browser-label">yukitasempai.github.io/mygv</span>
+              </div>
+              <iframe src="https://yukitasempai.github.io/mygv/" title="Demo interactiva del sitio MYGV"
+                loading="lazy" sandbox="allow-scripts allow-forms allow-same-origin"
+                referrerpolicy="no-referrer"></iframe>
+            </div>
+            <div class="project-copy">
+              <p class="project-kicker">Sitio multi-página · Demo en GitHub Pages</p>
+              <h3 class="project-title">MYGV — Golf Visa</h3>
+              <p class="project-description">
+                Sitio bilingüe para presentar una membresía de golf, sus beneficios y campos participantes, con páginas
+                informativas y herramientas interactivas.
+              </p>
+              <ul class="project-highlights">
+                <li><i class="bi bi-check2" aria-hidden="true"></i><span>Mapa Leaflet con filtros y grupos de marcadores</span></li>
+                <li><i class="bi bi-check2" aria-hidden="true"></i><span>Búsqueda de campos cercanos y localización</span></li>
+                <li><i class="bi bi-check2" aria-hidden="true"></i><span>Contenido bilingüe y formularios con validación en cliente</span></li>
+              </ul>
+              <div class="project-technologies" aria-label="Tecnologías utilizadas">
+                <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Leaflet</span><span>Bootstrap</span>
+              </div>
+              <div class="project-links">
+                <a class="project-link project-link-primary" href="https://yukitasempai.github.io/mygv/"
+                  target="_blank" rel="noopener noreferrer">
+                  <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i> Abrir demo
+                </a>
+                <a class="project-link" href="https://github.com/YukitaSempai/mygv"
+                  target="_blank" rel="noopener noreferrer">
+                  <i class="bi bi-github" aria-hidden="true"></i> Ver código
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="project-carousel-footer">
+          <div class="project-dots" role="group" aria-label="Seleccionar proyecto">
+            <button class="project-dot" type="button" data-project-index="0"
+              aria-label="Mostrar proyecto 1: Nanas Design" aria-current="true"></button>
+            <button class="project-dot" type="button" data-project-index="1"
+              aria-label="Mostrar proyecto 2: MYGV"></button>
+          </div>
+          <a class="project-profile-link" href="https://github.com/YukitaSempai?tab=repositories"
+            target="_blank" rel="noopener noreferrer">
+            Ver más proyectos en GitHub <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SKILLS -->
   <section id="skills">
     <div class="container-custom">
       <div class="reveal">
-        <span class="section-tag" style="color:var(--accent);border-color:var(--accent);">02 — Stack</span>
+        <span class="section-tag" style="color:var(--accent);border-color:var(--accent);">03 — Stack</span>
         <h2 class="section-heading">Desarrollo &<br>Experiencia</h2>
       </div>
 
@@ -1016,7 +1479,7 @@
   <section id="about">
     <div class="container-custom">
       <div class="reveal">
-        <span class="section-tag">03 — Sobre mí</span>
+        <span class="section-tag">04 — Sobre mí</span>
         <h2 class="section-heading">Construyo software<br>que importa</h2>
       </div>
 
@@ -1061,7 +1524,7 @@
   <section id="contact">
     <div class="container-custom">
       <div class="reveal">
-        <span class="section-tag">04 — Contacto</span>
+        <span class="section-tag">05 — Contacto</span>
         <h2 class="section-heading">Hablemos</h2>
       </div>
 
@@ -1148,6 +1611,85 @@
         navToggle.setAttribute('aria-label', 'Abrir menú');
       });
     });
+
+    // Project carousel: keep native swipe/scroll and synchronize accessible controls.
+    const projectTrack = document.getElementById('projectTrack');
+    const projectSlides = projectTrack ? Array.from(projectTrack.querySelectorAll('.project-card')) : [];
+    const projectDots = Array.from(document.querySelectorAll('.project-dot'));
+    const projectStatus = document.getElementById('projectStatus');
+    const projectPrevious = document.getElementById('projectPrevious');
+    const projectNext = document.getElementById('projectNext');
+    let activeProjectIndex = 0;
+    let projectScrollFrame = 0;
+
+    function updateProjectControls(index) {
+      activeProjectIndex = index;
+      projectDots.forEach((dot, dotIndex) => {
+        if (dotIndex === index) {
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.removeAttribute('aria-current');
+        }
+      });
+      projectPrevious.disabled = index === 0;
+      projectNext.disabled = index === projectSlides.length - 1;
+      const title = projectSlides[index].querySelector('.project-title').textContent.trim();
+      projectStatus.textContent = `Proyecto ${index + 1} de ${projectSlides.length}: ${title}`;
+    }
+
+    function scrollToProject(index) {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      projectTrack.scrollTo({
+        left: projectSlides[index].offsetLeft,
+        behavior: reducedMotion ? 'auto' : 'smooth'
+      });
+      updateProjectControls(index);
+    }
+
+    function syncProjectControls() {
+      projectScrollFrame = 0;
+      const trackCenter = projectTrack.scrollLeft + projectTrack.clientWidth / 2;
+      let closestIndex = 0;
+      let closestDistance = Infinity;
+      projectSlides.forEach((slide, index) => {
+        const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+        const distance = Math.abs(trackCenter - slideCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+      if (closestIndex !== activeProjectIndex) {
+        updateProjectControls(closestIndex);
+      }
+    }
+
+    if (projectTrack && projectSlides.length && projectDots.length === projectSlides.length) {
+      projectPrevious.addEventListener('click', () => {
+        scrollToProject(Math.max(0, activeProjectIndex - 1));
+      });
+      projectNext.addEventListener('click', () => {
+        scrollToProject(Math.min(projectSlides.length - 1, activeProjectIndex + 1));
+      });
+      projectDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => scrollToProject(index));
+      });
+      projectTrack.addEventListener('scroll', () => {
+        if (!projectScrollFrame) {
+          projectScrollFrame = window.requestAnimationFrame(syncProjectControls);
+        }
+      }, { passive: true });
+      projectTrack.addEventListener('keydown', event => {
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          scrollToProject(Math.min(projectSlides.length - 1, activeProjectIndex + 1));
+        } else if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          scrollToProject(Math.max(0, activeProjectIndex - 1));
+        }
+      });
+      updateProjectControls(0);
+    }
 
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
