@@ -34,6 +34,8 @@ jobs:
           test -f demos/mygv-preview.html
           test -f demos/sagem-preview.html
           test -f demos/siprot-preview.html
+          test -f demos/nexocorp-preview.html
+          test -f demos/nexora-preview.html
           mkdir public
           cp index.html public/
           cp -R assets public/assets

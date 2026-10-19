@@ -24,13 +24,14 @@ Para una versión nueva, modifica `index.html` o los archivos de `assets/`, revi
 
 El carrusel vive en la sección `#projects` de `index.html`. Cada tarjeta contiene una vista previa, una descripción, funcionalidades, tecnologías y, cuando el código está publicado, un enlace al repositorio. Para añadir un proyecto, duplica un elemento `.project-card`, actualiza su demo y enlaces, y añade su indicador `.project-dot`. Mantén el nombre accesible de cada diapositiva y los indicadores sincronizados.
 
-Las vistas locales se cargan de forma diferida en iframes aislados. SAGEM y SIPROT son prototipos autónomos que solo usan registros ficticios en memoria, sin conexión a servicios ni almacenamiento. MYGV cuenta con una demo en línea y una miniatura local ilustrativa para mantener el aislamiento del iframe; el enlace de la tarjeta abre la aplicación publicada. NexoCorp tiene una vista autónoma del sitio corporativo y sus cinco secciones, con filtros interactivos y cifras de panel ficticias. Sus formularios y panel no se conectan a un backend. No copies datos reales, capturas, documentos ni credenciales de repositorios privados a las demos. Si una demo deja de estar disponible, actualiza su enlace o sustitúyela por una vista estática claramente identificada, sin presentarla como funcional.
+Las vistas locales se cargan de forma diferida en iframes aislados. SAGEM y SIPROT son prototipos autónomos que solo usan registros ficticios en memoria, sin conexión a servicios ni almacenamiento. MYGV cuenta con una demo en línea y una miniatura local ilustrativa para mantener el aislamiento del iframe; el enlace de la tarjeta abre la aplicación publicada. NexoCorp tiene una vista autónoma del sitio corporativo y sus cinco secciones, con filtros interactivos y cifras de panel ficticias. Nexora permite explorar y filtrar la flota de bicicletas, registrar una reserva y cambiar su estado desde un panel de muestra. Los formularios y cambios de Nexora en el portafolio solo viven en memoria durante la sesión; no usa una base de datos ni persiste información. No copies datos reales, capturas, documentos ni credenciales de repositorios privados a las demos. Si una demo deja de estar disponible, actualiza su enlace o sustitúyela por una vista estática claramente identificada, sin presentarla como funcional.
 
 - [Nanas Design — código](https://github.com/YukitaSempai/nanas-design) · [demo](https://nanas-design.pages.dev/)
 - [MYGV — código](https://github.com/YukitaSempai/mygv) · [demo](https://yukitasempai.github.io/mygv/) · [vista previa local](./demos/mygv-preview.html)
 - SAGEM — [demo visual local](./demos/sagem-preview.html); el repositorio permanece privado.
 - SIPROT — [demo visual local](./demos/siprot-preview.html); el repositorio permanece privado.
 - NexoCorp — [demo local](./demos/nexocorp-preview.html); el [repositorio](https://github.com/YukitaSempai/NexoCorp) sigue privado y requiere acceso.
+- Nexora — [demo local](./demos/nexora-preview.html) · [repositorio público](https://github.com/YukitaSempai/nexora).
 
 ## Contacto
 

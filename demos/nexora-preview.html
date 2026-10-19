@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7faf5">
+  <title>Nexora | Demo de alquiler de bicicletas</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: #17251c;
+      background: #f7faf5;
+      font-synthesis: none;
+    }
+    * { box-sizing: border-box; }
+    body { min-width: 0; margin: 0; background: #f7faf5; font-size: 14px; }
+    button, input, select { font: inherit; }
+    button, a, summary { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid #0d9488; outline-offset: 3px; }
+    .topbar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: .7rem; padding: .7rem clamp(.8rem, 3vw, 1.4rem); border-bottom: 1px solid #e0e8dc; background: rgba(255,255,255,.96); }
+    .brand { display: inline-flex; align-items: center; gap: .5rem; color: #17251c; font-size: .95rem; font-weight: 850; letter-spacing: -.035em; text-decoration: none; white-space: nowrap; }
+    .brand-mark { display: grid; width: 1.8rem; height: 1.8rem; place-items: center; border-radius: .65rem; background: linear-gradient(135deg,#166534,#1a7f42); box-shadow: 0 4px 10px #16653430; color: #fff; }
+    .brand span:last-child span { color: #16a34a; }
+    .nav { display: flex; gap: .35rem; }
+    .nav button { padding: .48rem .65rem; border: 1px solid transparent; border-radius: 999px; background: transparent; color: #5d6f62; cursor: pointer; font-size: .65rem; font-weight: 750; }
+    .nav button[aria-pressed="true"] { border-color: #d6e8d9; background: #edf7ee; color: #15803d; }
+    .demo-mark { padding: .36rem .5rem; border: 1px solid #e7d4a4; border-radius: 999px; background: #fff9e9; color: #785617; font-size: .55rem; font-weight: 800; text-align: center; }
+    main { width: min(100%, 1000px); margin: auto; padding: clamp(.8rem, 2.5vw, 1.25rem); }
+    .disclaimer { margin: 0 0 .8rem; padding: .55rem .7rem; border-left: 3px solid #d99b26; background: #fff9e9; color: #69501f; font-size: .62rem; line-height: 1.5; }
+    .screen[hidden] { display: none; }
+    .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(150px, .85fr); align-items: center; gap: .6rem; overflow: hidden; padding: clamp(1rem, 3vw, 1.6rem); border: 1px solid #e2ebdf; border-radius: 16px; background: radial-gradient(circle at 85% 15%,#dff4dc 0,transparent 34%),linear-gradient(135deg,#fff,#f0f7ed); }
+    .eyebrow { margin: 0 0 .45rem; color: #15803d; font-size: .57rem; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { max-width: 580px; margin: 0; color: #17251c; font-size: clamp(1.25rem, 4vw, 2.1rem); font-weight: 850; letter-spacing: -.055em; line-height: 1.08; }
+    .hero-copy { max-width: 550px; margin: .55rem 0 .8rem; color: #5d6f62; font-size: .68rem; line-height: 1.55; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: 2.2rem; padding: .5rem .8rem; border: 0; border-radius: 999px; background: linear-gradient(135deg,#166534,#1a7f42); box-shadow: 0 5px 12px #1665342e; color: #fff; cursor: pointer; font-size: .65rem; font-weight: 800; transition: transform .15s, box-shadow .15s; }
+    .btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 7px 15px #16653435; }
+    .btn:disabled { cursor: not-allowed; opacity: .5; }
+    .btn-quiet { border: 1px solid #d9e4d6; background: #fff; box-shadow: none; color: #315b3e; }
+    .hero-art { width: 100%; max-width: 275px; justify-self: center; }
+    .hero-art svg { display: block; width: 100%; height: auto; }
+    .stats { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .5rem; margin-top: .65rem; }
+    .stat { padding: .55rem .7rem; border: 1px solid #e1e9de; border-radius: 9px; background: #fff; }
+    .stat strong { display: block; color: #17251c; font-size: .95rem; letter-spacing: -.04em; }
+    .stat span { display: block; margin-top: .12rem; color: #6b7c6e; font-size: .57rem; }
+    .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: .6rem; margin: 1rem 0 .55rem; }
+    h2 { margin: 0; font-size: .85rem; letter-spacing: -.025em; }
+    .muted { margin: .2rem 0 0; color: #6b7c6e; font-size: .61rem; line-height: 1.45; }
+    .filter-bar { display: flex; flex-wrap: wrap; gap: .3rem; }
+    .filter-chip { padding: .38rem .55rem; border: 1px solid #dce6d9; border-radius: 999px; background: #fff; color: #5d6f62; cursor: pointer; font-size: .59rem; font-weight: 750; }
+    .filter-chip[aria-pressed="true"] { border-color: #16a34a; background: #16a34a; color: #fff; }
+    .fleet { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .55rem; }
+    .bike-card { min-width: 0; overflow: hidden; border: 1px solid #e0e8dd; border-radius: 11px; background: #fff; }
+    .bike-art { position: relative; display: grid; min-height: 86px; place-items: center; overflow: hidden; background: linear-gradient(135deg,#e4f5e4,#f4f8e9); }
+    .bike-art.electric { background: linear-gradient(135deg,#e0f3e8,#e9f5d9); }
+    .bike-art.mountain { background: linear-gradient(135deg,#f4edda,#f8f5e9); }
+    .bike-art svg { width: 78%; max-height: 74px; }
+    .badge { position: absolute; top: .45rem; right: .45rem; padding: .25rem .42rem; border-radius: 999px; background: #eaf7eb; color: #18733a; font-size: .51rem; font-weight: 800; }
+    .badge.busy { background: #eff2ef; color: #657166; }
+    .badge.maintenance { background: #fff4df; color: #916316; }
+    .bike-body { padding: .6rem .65rem; }
+    .bike-type { color: #178044; font-size: .53rem; font-weight: 850; letter-spacing: .07em; text-transform: uppercase; }
+    .bike-body h3 { margin: .2rem 0; font-size: .69rem; letter-spacing: -.02em; }
+    .bike-description { min-height: 2.4em; margin: .25rem 0 .45rem; color: #69796c; font-size: .58rem; line-height: 1.4; }
+    .bike-meta { display: flex; flex-wrap: wrap; gap: .25rem .5rem; color: #6b7c6e; font-size: .53rem; }
+    .bike-footer { display: flex; align-items: center; justify-content: space-between; gap: .35rem; padding: .55rem .65rem; border-top: 1px solid #edf1ea; }
+    .price { font-size: .7rem; font-weight: 850; white-space: nowrap; }
+    .price small { display: block; color: #718072; font-size: .52rem; font-weight: 500; }
+    .bike-footer .btn { min-height: 1.9rem; padding: .4rem .6rem; font-size: .56rem; }
+    .impact { display: flex; align-items: center; justify-content: space-between; gap: .65rem; margin-top: .7rem; padding: .7rem .8rem; border: 1px solid #dce9d8; border-radius: 10px; background: #eff7eb; }
+    .impact strong { display: block; color: #176b37; font-size: .68rem; }
+    .impact span { display: block; margin-top: .15rem; color: #687b6a; font-size: .55rem; }
+    .impact-value { color: #176b37; font-size: 1.05rem; font-weight: 850; white-space: nowrap; }
+    .admin-head { display: flex; align-items: flex-start; justify-content: space-between; gap: .6rem; padding: 1rem; border-radius: 12px; background: #103721; color: #fff; }
+    .admin-head h1 { color: #fff; font-size: 1.15rem; }
+    .admin-head p { margin: .3rem 0 0; color: #c9dfcf; font-size: .61rem; }
+    .admin-badge { flex: 0 0 auto; padding: .35rem .5rem; border: 1px solid #ffffff3b; border-radius: 999px; color: #def7e5; font-size: .55rem; font-weight: 750; }
+    .admin-stats { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .5rem; margin: .6rem 0; }
+    .admin-stat { padding: .6rem; border: 1px solid #e0e8dd; border-radius: 9px; background: #fff; }
+    .admin-stat span { display: block; color: #6b7c6e; font-size: .55rem; }
+    .admin-stat strong { display: block; margin-top: .2rem; color: #17251c; font-size: .95rem; }
+    .res-list { display: grid; gap: .45rem; }
+    .res-row { display: flex; align-items: center; justify-content: space-between; gap: .5rem; padding: .6rem .7rem; border: 1px solid #e0e8dd; border-radius: 9px; background: #fff; }
+    .res-info { min-width: 0; }
+    .res-info strong { display: block; overflow: hidden; font-size: .63rem; text-overflow: ellipsis; white-space: nowrap; }
+    .res-info span { display: block; margin-top: .15rem; color: #6b7c6e; font-size: .55rem; }
+    .res-actions { display: flex; flex: 0 0 auto; align-items: center; gap: .35rem; }
+    .res-status { padding: .27rem .4rem; border-radius: 999px; background: #fff4df; color: #8a6015; font-size: .52rem; font-weight: 800; }
+    .res-status.confirmada { background: #e9f3ff; color: #345f8d; }
+    .res-status.activa { background: #e5f5f2; color: #147467; }
+    .res-status.finalizada { background: #eaf7eb; color: #18733a; }
+    .res-status.cancelada { background: #fcebea; color: #a33831; }
+    .res-action { padding: .35rem .48rem; border: 1px solid #dce6d9; border-radius: 999px; background: #fff; color: #315b3e; cursor: pointer; font-size: .54rem; font-weight: 750; }
+    .empty { padding: 1rem; border: 1px dashed #dce6d9; border-radius: 9px; color: #6b7c6e; font-size: .63rem; text-align: center; }
+    .panel-note { margin: .6rem 0 0; color: #6b7c6e; font-size: .56rem; line-height: 1.5; }
+    .toast { position: fixed; right: .8rem; bottom: .8rem; z-index: 25; max-width: calc(100% - 1.6rem); padding: .6rem .75rem; border-radius: 9px; background: #153c23; box-shadow: 0 8px 24px #0f2e1d35; color: #fff; font-size: .65rem; }
+    .toast[hidden] { display: none; }
+    dialog { width: min(520px, calc(100% - 1.25rem)); max-height: min(90vh, 720px); padding: 0; border: 1px solid #dce6d9; border-radius: 14px; background: #fff; color: #17251c; box-shadow: 0 24px 80px #102b1a40; }
+    dialog::backdrop { background: #102b1a75; backdrop-filter: blur(3px); }
+    .dialog-inner { padding: 1rem; }
+    .dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; }
+    .dialog-head h2 { font-size: 1rem; }
+    .dialog-close { width: 2rem; height: 2rem; border: 1px solid #e1e9de; border-radius: 50%; background: #fff; color: #536456; cursor: pointer; font-size: 1.15rem; }
+    .form-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .65rem; margin: .9rem 0; }
+    .field { display: grid; gap: .3rem; min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { color: #425346; font-size: .62rem; font-weight: 750; }
+    .field input, .field select { width: 100%; min-height: 2.35rem; padding: .5rem .6rem; border: 1px solid #d7e1d4; border-radius: 7px; background: #fff; color: #17251c; font-size: .67rem; }
+    .summary { display: flex; justify-content: space-between; gap: .5rem; margin: .75rem 0; padding: .65rem .7rem; border-radius: 8px; background: #eff7eb; color: #5c6e60; font-size: .6rem; }
+    .summary strong { color: #176b37; }
+    .dialog-submit { width: 100%; }
+    .toast-stack { position: fixed; right: .8rem; bottom: .8rem; z-index: 30; display: grid; gap: .4rem; pointer-events: none; }
+    .toast-stack .toast { position: static; }
+    footer { padding: .8rem .25rem .2rem; color: #718072; font-size: .55rem; text-align: center; }
+    @media (max-width: 560px) {
+      .topbar { flex-wrap: wrap; }
+      .demo-mark { margin-left: auto; }
+      .nav { order: 3; width: 100%; justify-content: center; }
+      .hero { grid-template-columns: minmax(0,1fr) 115px; }
+      .hero-art { width: 125px; }
+      .fleet { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .bike-art { min-height: 74px; }
+      .section-head { align-items: flex-start; flex-direction: column; }
+      .impact { align-items: flex-start; }
+    }
+    @media (max-width: 350px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-art { display: none; }
+      .fleet { grid-template-columns: 1fr; }
+      .bike-art { min-height: 100px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+    }
+    @media (max-width: 420px) {
+      .res-row { align-items: stretch; flex-direction: column; }
+      .res-actions { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#screen-cliente" aria-label="Nexora, inicio">
+      <span class="brand-mark" aria-hidden="true">N</span>
+      <span>Nex<span>ora</span></span>
+    </a>
+    <nav class="nav" aria-label="Vistas de demostración">
+      <button type="button" data-screen="cliente" aria-pressed="true">Experiencia pública</button>
+      <button type="button" data-screen="panel" aria-pressed="false">Panel de muestra</button>
+    </nav>
+    <span class="demo-mark">DEMO · DATOS DE EJEMPLO</span>
+  </header>
+  <main>
+    <p class="disclaimer">Prototipo aislado del alquiler de bicicletas Nexora. Las reservas y cambios del panel solo viven en memoria mientras esta página está abierta; no se envían ni guardan datos.</p>
+
+    <section class="screen" id="screen-cliente" aria-label="Experiencia pública Nexora">
+      <div class="hero">
+        <div>
+          <p class="eyebrow">Flota de muestra · Movilidad sostenible</p>
+          <h1>Alquila tu bici y ponte en marcha.</h1>
+          <p class="hero-copy">Explora una flota urbana, eléctrica y de montaña; elige una estación y reserva por horas.</p>
+          <button class="btn" type="button" id="heroReserve">Reservar una bici <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <svg viewBox="0 0 300 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="190" rx="18" fill="#E8F5E7"/>
+            <circle cx="242" cy="42" r="22" fill="#FDE68A"/>
+            <path d="M0 129C47 102 78 118 119 127C161 137 209 101 300 118V190H0V129Z" fill="#BBF7D0"/>
+            <path d="M0 150C70 122 115 150 169 147C220 144 258 123 300 138V190H0V150Z" fill="#86EFAC"/>
+            <path d="M68 160L96 117L122 160H68Z" fill="#15803D"/>
+            <path d="M210 155L231 121L252 155H210Z" fill="#166534"/>
+            <path d="M69 166H252" stroke="#DCE7DC" stroke-width="18"/>
+            <circle cx="112" cy="145" r="20" stroke="#14532D" stroke-width="4"/>
+            <circle cx="191" cy="145" r="20" stroke="#14532D" stroke-width="4"/>
+            <path d="M112 145L135 112L153 145H112ZM135 112H169L191 145H153L135 112Z" stroke="#14532D" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M135 111L130 104M126 103H140M169 112L175 102M168 101H181" stroke="#14532D" stroke-width="4" stroke-linecap="round"/>
+            <path d="M153 102L160 83L177 93M160 83L151 68" stroke="#16A34A" stroke-width="7" stroke-linecap="round"/>
+            <circle cx="153" cy="61" r="9" fill="#F2C18D"/>
+            <path d="M152 56C153 47 168 49 170 58L153 60L152 56Z" fill="#14532D"/>
+          </svg>
+        </div>
+      </div>
+      <div class="stats" aria-label="Indicadores de la flota de muestra">
+        <div class="stat"><strong id="availableStat">0</strong><span>Bicis disponibles</span></div>
+        <div class="stat"><strong id="stationsStat">0</strong><span>Estaciones</span></div>
+        <div class="stat"><strong>3</strong><span>Flujos interactivos</span></div>
+      </div>
+      <div class="section-head">
+        <div><h2>Elige tu próxima ruta</h2><p class="muted">Filtra la flota y consulta disponibilidad en las estaciones.</p></div>
+        <div class="filter-bar" role="group" aria-label="Filtrar bicicletas">
+          <button class="filter-chip" type="button" data-type="Todas" aria-pressed="true">Todas</button>
+          <button class="filter-chip" type="button" data-type="Urbana" aria-pressed="false">Urbana</button>
+          <button class="filter-chip" type="button" data-type="Eléctrica" aria-pressed="false">Eléctrica</button>
+          <button class="filter-chip" type="button" data-type="Montaña" aria-pressed="false">Montaña</button>
+        </div>
+      </div>
+      <div class="fleet" id="fleet" aria-live="polite"></div>
+      <div class="impact">
+        <div><strong>🌿 Impacto estimado de la demo</strong><span>Referencia ilustrativa: 0,9 kg de CO₂ por hora de uso simulada.</span></div>
+        <div class="impact-value"><span id="co2Stat">0</span> kg CO₂</div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-panel" aria-label="Panel administrativo de muestra" hidden>
+      <div class="admin-head">
+        <div><p class="eyebrow" style="color:#bde9c5">Nexora · Administración</p><h1>Resumen de actividad</h1><p>Panel conceptual para explorar el ciclo de vida de reservas.</p></div>
+        <span class="admin-badge">Sin autenticación real</span>
+      </div>
+      <div class="admin-stats">
+        <div class="admin-stat"><span>Bicis disponibles</span><strong id="adminAvailable">0</strong></div>
+        <div class="admin-stat"><span>Reservas de demo</span><strong id="adminReservations">0</strong></div>
+        <div class="admin-stat"><span>Solicitudes pendientes</span><strong id="adminPending">0</strong></div>
+      </div>
+      <div class="section-head"><div><h2>Gestión de reservas</h2><p class="muted">Confirma, inicia o finaliza una solicitud de ejemplo.</p></div></div>
+      <div class="res-list" id="reservationList" aria-live="polite"></div>
+      <p class="panel-note">Los cambios afectan solo a esta sesión del navegador. No hay base de datos, cuentas ni comunicación con un servicio.</p>
+    </section>
+
+    <footer>Proyecto Nexora · HTML, CSS y JavaScript · Demostración autónoma sin backend</footer>
+  </main>
+  <dialog id="reserveDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-inner">
+      <div class="dialog-head"><div><h2 id="dialogTitle">Solicitar una reserva</h2><p class="muted">El registro se añadirá al panel de esta demo.</p></div><button class="dialog-close" type="button" id="closeDialog" aria-label="Cerrar">×</button></div>
+      <form id="reserveForm">
+        <div class="form-grid">
+          <div class="field full"><label for="bikeSelect">Bicicleta</label><select id="bikeSelect" name="bike" required></select></div>
+          <div class="field"><label for="customerName">Nombre de muestra</label><input id="customerName" name="name" autocomplete="name" minlength="2" required placeholder="Nombre"></div>
+          <div class="field"><label for="customerEmail">Correo</label><input id="customerEmail" name="email" type="email" autocomplete="email" required placeholder="tu@correo.test"></div>
+          <div class="field"><label for="pickupDate">Fecha de recogida</label><input id="pickupDate" name="date" type="date" required></div>
+          <div class="field"><label for="rentalHours">Duración (horas)</label><input id="rentalHours" name="hours" type="number" min="1" max="72" value="2" required></div>
+        </div>
+        <div class="summary"><span>Estación: <strong id="stationSummary">—</strong></span><span>Total estimado: <strong id="totalSummary">—</strong></span></div>
+        <button class="btn dialog-submit" type="submit">Crear solicitud de demostración</button>
+      </form>
+    </div>
+  </dialog>
+  <div class="toast-stack" id="toasts" aria-live="polite"></div>
+  <script>
+    const bikes = [
+      { id: "BK-001", name: "Nexora City 01", type: "Urbana", description: "Ligera y cómoda para trayectos diarios, con 7 velocidades y portabultos.", priceHour: 1.5, priceDay: 12, status: "disponible", station: "Estación Centro", battery: null },
+      { id: "BK-002", name: "Nexora City 02", type: "Urbana", description: "Cuadro con candado, guardabarros y luz integrada para todo el año.", priceHour: 1.5, priceDay: 12, status: "disponible", station: "Estación Norte", battery: null },
+      { id: "BK-003", name: "Nexora E-Bike 01", type: "Eléctrica", description: "Asistencia eléctrica y hasta 70 km de autonomía por carga.", priceHour: 2.5, priceDay: 18, status: "disponible", station: "Estación Centro", battery: 92 },
+      { id: "BK-004", name: "Nexora E-Bike 02", type: "Eléctrica", description: "Asistencia progresiva y pantalla con autonomía para las cuestas.", priceHour: 2.5, priceDay: 18, status: "alquilada", station: "Estación Río", battery: 78 },
+      { id: "BK-005", name: "Nexora Trail 01", type: "Montaña", description: "Suspensión delantera y frenos de disco para rutas y senderos.", priceHour: 2, priceDay: 15, status: "disponible", station: "Estación Sierra", battery: null },
+      { id: "BK-006", name: "Nexora Trail 02", type: "Montaña", description: "21 velocidades y neumáticos de agarre para terreno irregular.", priceHour: 2, priceDay: 15, status: "mantenimiento", station: "Taller", battery: null },
+      { id: "BK-007", name: "Nexora City 03", type: "Urbana", description: "Plegable y práctica para combinar con el transporte público.", priceHour: 1.5, priceDay: 12, status: "disponible", station: "Estación Sur", battery: null },
+      { id: "BK-008", name: "Nexora E-Bike 03", type: "Eléctrica", description: "Batería ligera y modo eco para trayectos urbanos largos.", priceHour: 2.5, priceDay: 18, status: "disponible", station: "Estación Este", battery: 64 }
+    ];
+    const reservations = [{
+      id: "DEMO-001",
+      bikeId: "BK-001",
+      customer: "Cliente de muestra",
+      email: "cliente@example.test",
+      date: new Date().toLocaleDateString("en-CA"),
+      hours: 2,
+      total: 3,
+      status: "pendiente"
+    }];
+    let activeType = "Todas";
+    let nextReservation = 2;
+    const euro = value => new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(value);
+    const availableBikes = () => bikes.filter(bike => bike.status === "disponible");
+    const bikeById = id => bikes.find(bike => bike.id === id);
+    const today = new Date();
+    const todayString = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+    document.getElementById("pickupDate").min = todayString;
+    document.getElementById("pickupDate").value = todayString;
+
+    function bicycleIcon() {
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("viewBox", "0 0 180 86");
+      svg.setAttribute("role", "img");
+      svg.setAttribute("aria-label", "Ilustración de bicicleta");
+      svg.innerHTML = '<g fill="none" stroke="#14532d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="42" cy="58" r="23"/><circle cx="138" cy="58" r="23"/><path d="M42 58l27-39 20 39H42zm27-39h35l34 39H89L69 19zM69 19l-5-9m-6 0h15m66 9l7-10m-10 0h16"/></g><path d="M88 19l6-17 18 12" fill="none" stroke="#16a34a" stroke-width="7" stroke-linecap="round"/><circle cx="96" cy="0" r="7" fill="#f2c18d"/>';
+      return svg;
+    }
+
+    function renderFleet() {
+      const fleet = document.getElementById("fleet");
+      const visible = bikes.filter(bike => activeType === "Todas" || bike.type === activeType);
+      fleet.replaceChildren();
+      visible.forEach(bike => {
+        const card = document.createElement("article");
+        card.className = "bike-card";
+        const art = document.createElement("div");
+        art.className = `bike-art ${bike.type === "Eléctrica" ? "electric" : bike.type === "Montaña" ? "mountain" : ""}`;
+        const badge = document.createElement("span");
+        badge.className = `badge ${bike.status === "disponible" ? "" : bike.status === "alquilada" ? "busy" : "maintenance"}`;
+        badge.textContent = bike.status === "disponible" ? "Disponible" : bike.status === "alquilada" ? "Alquilada" : "Mantenimiento";
+        art.append(badge, bicycleIcon());
+        const body = document.createElement("div");
+        body.className = "bike-body";
+        const type = document.createElement("span");
+        type.className = "bike-type";
+        type.textContent = bike.type;
+        const title = document.createElement("h3");
+        title.textContent = bike.name;
+        const description = document.createElement("p");
+        description.className = "bike-description";
+        description.textContent = bike.description;
+        const meta = document.createElement("div");
+        meta.className = "bike-meta";
+        const station = document.createElement("span");
+        station.textContent = `📍 ${bike.station}`;
+        meta.append(station);
+        if (bike.battery !== null) {
+          const battery = document.createElement("span");
+          battery.textContent = `🔋 ${bike.battery}%`;
+          meta.append(battery);
+        }
+        body.append(type, title, description, meta);
+        const footer = document.createElement("div");
+        footer.className = "bike-footer";
+        const price = document.createElement("div");
+        price.className = "price";
+        price.append(document.createTextNode(`${euro(bike.priceHour)}/h`));
+        const daily = document.createElement("small");
+        daily.textContent = `${euro(bike.priceDay)}/día`;
+        price.append(daily);
+        const button = document.createElement("button");
+        button.className = "btn";
+        button.type = "button";
+        button.textContent = bike.status === "disponible" ? "Reservar" : "No disponible";
+        button.disabled = bike.status !== "disponible";
+        button.addEventListener("click", () => openReservation(bike.id));
+        footer.append(price, button);
+        card.append(art, body, footer);
+        fleet.append(card);
+      });
+      updateStats();
+    }
+
+    function updateStats() {
+      document.getElementById("availableStat").textContent = String(availableBikes().length);
+      document.getElementById("stationsStat").textContent = String(new Set(bikes.map(bike => bike.station)).size);
+      document.getElementById("adminAvailable").textContent = String(availableBikes().length);
+      document.getElementById("adminReservations").textContent = String(reservations.length);
+      document.getElementById("adminPending").textContent = String(reservations.filter(item => item.status === "pendiente").length);
+      const hours = reservations.filter(item => item.status === "finalizada").reduce((sum, item) => sum + item.hours, 0);
+      document.getElementById("co2Stat").textContent = (hours * 0.9).toLocaleString("es-ES", { maximumFractionDigits: 1 });
+    }
+
+    function populateBikeSelect(preselectedId) {
+      const select = document.getElementById("bikeSelect");
+      const available = availableBikes();
+      select.replaceChildren();
+      available.forEach(bike => {
+        const option = document.createElement("option");
+        option.value = bike.id;
+        option.textContent = `${bike.name} · ${bike.type} · ${euro(bike.priceHour)}/h`;
+        option.selected = bike.id === preselectedId;
+        select.append(option);
+      });
+      if (!available.length) {
+        const option = document.createElement("option");
+        option.value = "";
+        option.textContent = "No hay bicicletas disponibles";
+        select.append(option);
+        select.disabled = true;
+      } else {
+        select.disabled = false;
+      }
+      updateSummary();
+    }
+
+    function updateSummary() {
+      const bike = bikeById(document.getElementById("bikeSelect").value);
+      const hours = Number(document.getElementById("rentalHours").value) || 0;
+      document.getElementById("stationSummary").textContent = bike ? bike.station : "—";
+      document.getElementById("totalSummary").textContent = bike && hours > 0 ? euro(bike.priceHour * hours) : "—";
+    }
+
+    function openReservation(preselectedId) {
+      document.getElementById("reserveForm").reset();
+      document.getElementById("pickupDate").min = todayString;
+      document.getElementById("pickupDate").value = todayString;
+      document.getElementById("rentalHours").value = "2";
+      populateBikeSelect(preselectedId);
+      document.getElementById("reserveDialog").showModal();
+    }
+
+    function showToast(message) {
+      const toast = document.createElement("div");
+      toast.className = "toast";
+      toast.setAttribute("role", "status");
+      toast.textContent = message;
+      document.getElementById("toasts").append(toast);
+      window.setTimeout(() => toast.remove(), 3200);
+    }
+
+    const statusLabel = {
+      pendiente: "Pendiente",
+      confirmada: "Confirmada",
+      activa: "Activa",
+      finalizada: "Finalizada",
+      cancelada: "Cancelada"
+    };
+
+    function renderReservations() {
+      const list = document.getElementById("reservationList");
+      list.replaceChildren();
+      if (!reservations.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = "Todavía no hay solicitudes. Crea una desde la experiencia pública.";
+        list.append(empty);
+        updateStats();
+        return;
+      }
+      [...reservations].reverse().forEach(reservation => {
+        const bike = bikeById(reservation.bikeId);
+        const row = document.createElement("article");
+        row.className = "res-row";
+        const info = document.createElement("div");
+        info.className = "res-info";
+        const name = document.createElement("strong");
+        name.textContent = `${reservation.id} · ${reservation.customer}`;
+        const detail = document.createElement("span");
+        detail.textContent = `${bike ? bike.name : "Bicicleta"} · ${reservation.date} · ${reservation.hours} h · ${euro(reservation.total)}`;
+        info.append(name, detail);
+        const actions = document.createElement("div");
+        actions.className = "res-actions";
+        const status = document.createElement("span");
+        status.className = `res-status ${reservation.status}`;
+        status.textContent = statusLabel[reservation.status];
+        actions.append(status);
+        const next = reservation.status === "pendiente" ? ["confirmada", "Confirmar"]
+          : reservation.status === "confirmada" ? ["activa", "Iniciar"]
+          : reservation.status === "activa" ? ["finalizada", "Finalizar"]
+          : null;
+        if (next) {
+          const action = document.createElement("button");
+          action.type = "button";
+          action.className = "res-action";
+          action.textContent = next[1];
+          action.addEventListener("click", () => transitionReservation(reservation, next[0]));
+          actions.append(action);
+        }
+        if (reservation.status === "pendiente" || reservation.status === "confirmada" || reservation.status === "activa") {
+          const cancel = document.createElement("button");
+          cancel.type = "button";
+          cancel.className = "res-action";
+          cancel.textContent = "Cancelar";
+          cancel.addEventListener("click", () => transitionReservation(reservation, "cancelada"));
+          actions.append(cancel);
+        }
+        row.append(info, actions);
+        list.append(row);
+      });
+      updateStats();
+    }
+
+    function transitionReservation(reservation, nextStatus) {
+      const previousStatus = reservation.status;
+      const bike = bikeById(reservation.bikeId);
+      if (nextStatus === "activa" && bike && bike.status !== "disponible") {
+        showToast("Esta bici ya no está disponible en la demo.");
+        return;
+      }
+      if (nextStatus === "activa" && bike) bike.status = "alquilada";
+      if ((nextStatus === "finalizada" || nextStatus === "cancelada") && previousStatus === "activa" && bike) bike.status = "disponible";
+      reservation.status = nextStatus;
+      renderReservations();
+      renderFleet();
+      showToast(`Solicitud actualizada: ${statusLabel[nextStatus].toLowerCase()}.`);
+    }
+
+    document.querySelectorAll(".filter-chip").forEach(button => {
+      button.addEventListener("click", () => {
+        activeType = button.dataset.type;
+        document.querySelectorAll(".filter-chip").forEach(chip => chip.setAttribute("aria-pressed", String(chip === button)));
+        renderFleet();
+      });
+    });
+    document.querySelectorAll("[data-screen]").forEach(button => {
+      button.addEventListener("click", () => {
+        const screen = button.dataset.screen;
+        document.querySelectorAll("[data-screen]").forEach(tab => tab.setAttribute("aria-pressed", String(tab === button)));
+        document.querySelectorAll(".screen").forEach(section => { section.hidden = section.id !== `screen-${screen}`; });
+        if (screen === "panel") renderReservations();
+      });
+    });
+    document.getElementById("heroReserve").addEventListener("click", () => openReservation());
+    document.getElementById("bikeSelect").addEventListener("change", updateSummary);
+    document.getElementById("rentalHours").addEventListener("input", updateSummary);
+    document.getElementById("closeDialog").addEventListener("click", () => document.getElementById("reserveDialog").close());
+    document.getElementById("reserveDialog").addEventListener("click", event => {
+      if (event.target === event.currentTarget) event.currentTarget.close();
+    });
+    document.getElementById("reserveForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      if (!form.reportValidity()) return;
+      const bike = bikeById(document.getElementById("bikeSelect").value);
+      const hours = Number(document.getElementById("rentalHours").value);
+      const date = document.getElementById("pickupDate").value;
+      if (!bike || bike.status !== "disponible") {
+        showToast("Selecciona una bicicleta disponible.");
+        populateBikeSelect();
+        return;
+      }
+      if (hours < 1 || hours > 72 || date < todayString) {
+        showToast("Revisa la fecha y la duración de la reserva.");
+        return;
+      }
+      const name = document.getElementById("customerName").value.trim();
+      const email = document.getElementById("customerEmail").value.trim();
+      reservations.push({
+        id: `DEMO-${String(nextReservation++).padStart(3, "0")}`,
+        bikeId: bike.id,
+        customer: name,
+        email,
+        date,
+        hours,
+        total: Math.round(bike.priceHour * hours * 100) / 100,
+        status: "pendiente"
+      });
+      document.getElementById("reserveDialog").close();
+      renderReservations();
+      showToast("Solicitud añadida a esta sesión de demostración.");
+    });
+
+    renderFleet();
+    renderReservations();
+  </script>
+</body>
+</html>
